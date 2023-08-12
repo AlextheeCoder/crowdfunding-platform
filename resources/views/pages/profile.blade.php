@@ -30,7 +30,7 @@
     </div>
 
     <div class="my-campaigns">
-        <h3>My Campaigns</h3>
+        <h3>Your Campaigns</h3>
 
 
         <table>

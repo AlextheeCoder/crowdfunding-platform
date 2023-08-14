@@ -73,6 +73,7 @@
                     if (data.success) {
                         // Optionally, display a success message to the user
                         alert('Message sent successfully!');
+                        window.location.href = '/message';
                     } else {
                         // Handle any errors that may occur
                         alert('Failed to send message. Please try again.');

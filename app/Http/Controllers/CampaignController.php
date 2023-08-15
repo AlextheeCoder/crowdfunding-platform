@@ -23,11 +23,18 @@ class CampaignController extends Controller
 
     public function discover(Request $request)
     {
-        // Get the search query from the request
+        // Get the search query, category, and sort option from the request
         $searchQuery = $request->input('search');
+        $category = $request->input('category');
+        $sortBy = $request->input('sort_by');
     
         // Fetch campaigns with pledges using eager loading
         $query = Campaign::with('pledges');
+    
+        // Apply the category filter if the category is present and not "all"
+        if ($category && $category != 'all') {
+            $query->where('category', $category);
+        }
     
         // Apply the search filter if the search query is present
         if ($searchQuery) {
@@ -35,6 +42,31 @@ class CampaignController extends Controller
                 ->orWhere('description', 'like', '%' . $searchQuery . '%')
                 ->orWhere('category', 'like', '%' . $searchQuery . '%');
         }
+    
+        // Apply sorting based on the selected sort option
+        // Apply sorting based on the selected sort option
+    switch ($sortBy) {
+        case 'latest':
+            $query->orderBy('created_at', 'desc');
+            break;
+        case 'popular':
+            // Sort by the number of unique investors
+            $query->withCount(['pledges as unique_investors_count' => function ($query) {
+                $query->select(DB::raw('DISTINCT(user_id)'));
+            }])->orderBy('unique_investors_count', 'desc');
+            break;
+        case 'price_low_to_high':
+            $query->orderBy('target', 'asc');
+            break;
+        case 'price_high_to_low':
+            $query->orderBy('target', 'desc');
+            break;
+        // Add other cases if needed
+        default:
+            // Default sorting logic if needed
+            break;
+    }
+
     
         // Get the filtered campaigns
         $campaigns = $query->get();
@@ -207,4 +239,6 @@ class CampaignController extends Controller
         ]);
 
     }
+
+
 }

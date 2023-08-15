@@ -35,16 +35,16 @@
        <div class="bottom-section">
          <div class="filters">
             <h2>Filter Options</h2>
+            
             <label for="category">Category:</label>
-            <select name="category" id="category">
-              <option value="all">All Categories</option>
-              <option value="Technology">Technology</option>
-              <option value="Social">Social</option>
-              <option value="Business">Business</option>
-              <option value="lifestyle">Life Style</option>
-            </select>
-          
-           
+            <form action="">
+              <select name="category" id="category">
+                <option value="all">All Categories</option>
+                <option value="Technology">Technology</option>
+                <option value="Social">Social</option>
+                <option value="Business">Business</option>
+                <option value="lifestyle">Life Style</option>
+              </select>
             <label for="sort_by">Sort By:</label>
             <select name="sort_by" id="sort_by">
               <option value="featured">Featured</option>
@@ -55,6 +55,7 @@
             </select>
           
             <button type="button">Apply Filters</button>
+          </form>
           </div>
           
           <div class="card-container">

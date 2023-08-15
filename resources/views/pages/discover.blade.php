@@ -37,7 +37,7 @@
             <h2>Filter Options</h2>
             
             <label for="category">Category:</label>
-            <form action="">
+            <form action="/discover">
               <select name="category" id="category">
                 <option value="all">All Categories</option>
                 <option value="Technology">Technology</option>
@@ -54,7 +54,7 @@
               <option value="price_high_to_low">Target: High to Low</option>
             </select>
           
-            <button type="button">Apply Filters</button>
+            <button type="submit">Apply Filters</button>
           </form>
           </div>
           

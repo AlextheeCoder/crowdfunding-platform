@@ -42,9 +42,10 @@
               </div>
             </form>
       </div>
+      <div class="overlay" id="overlay" style="display: none"></div>
       <div class="loading-spinner" id="loading-spinner" style="display: none;">
         <div class="spinner"></div>
-        <div class="spinner-text">Loading...</div>
+        <div class="spinner-text" style="border-top: 10px">Loading...</div>
       </div>
   </div>
 
@@ -70,6 +71,7 @@
 
   // Get the loading spinner element
   const loadingSpinner = document.getElementById('loading-spinner');
+  const overlay=document.getElementById('overlay');
 
   // Add event listener to the form submission
   form.addEventListener('submit', async function(event) {
@@ -77,6 +79,7 @@
 
     // Show the loading spinner
     loadingSpinner.style.display = 'block';
+    overlay.style.display='block';
 
     // Disable the submit button to prevent multiple submissions
     submitButton.disabled = true;

@@ -36,6 +36,11 @@
         <h3>About This  Campaign</h3>
         <p>{{$campaign->description}}</p>
       </div>
+      <div class="overlay" id="overlay" style="display: none"></div>
+      <div class="loading-spinner" id="loading-spinner" style="display: none;">
+        <div class="spinner"></div>
+        <div class="spinner-text" style="border-top: 10px">Loading...</div>
+      </div>
     </div>
   
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
@@ -60,11 +65,16 @@
         // Get the pledge form and submit button
         const pledgeForm = document.getElementById('pledge-form');
         const pledgeButton = document.getElementById('pledge-button');
+
+        const loadingSpinner = document.getElementById('loading-spinner');
+       const overlay=document.getElementById('overlay');
   
         // Add event listener to the pledge form submission
         pledgeForm.addEventListener('submit', async function (event) {
           event.preventDefault(); // Prevent form submission
   
+          loadingSpinner.style.display = 'block';
+          overlay.style.display='block';
           // Disable the pledge button to prevent multiple pledges
           pledgeButton.disabled = true;
   
@@ -107,7 +117,8 @@
             console.error(error);
             alert('Pledge failed. Please try again.'); // Display error message
           }
-  
+          loadingSpinner.style.display = 'none';
+          overlay.style.display='none';
           // Enable the pledge button again
           pledgeButton.disabled = false;
         });

@@ -1,5 +1,5 @@
 <x-layout>
-  <div class="chat-container">
+  <div class="chat-container" style="margin-bottom: 100px">
     <div class="contacts-section">
       <div class="contacts-header">
         <h2>Contacts</h2>

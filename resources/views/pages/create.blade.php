@@ -1,5 +1,5 @@
 <x-layout>
-  <div class="createcampaign">
+  <div class="createcampaign" style="margin-bottom: 100px">
       <div class="createform">
           <form method="POST" action="{{ route('campaign.create') }}" enctype="multipart/form-data" id="campaign-form">
               @csrf

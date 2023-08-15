@@ -3,15 +3,13 @@
        <div class="tttext">
        </div>
        <div class="abtext">
-           <img src="images/world.jpg" alt="">
+          
            <div class="tttext">
 
             <h2>Posibbilities are Limitless</h2>
-               <p>Unlock the limitless wellspring of inspiration that awaits you,
-                   as we embark on a transformative journey together. Let our shared
-                   experiences and creative vision kindle the spark within, igniting
-                   a world of possibilities. Find inspiration with us and let your
-                   imagination soar to new heights</p>
+               <p style="margin: 20px">
+                Fund new and groundbreaking projects
+              </p>
 
              
            </div>

@@ -8,7 +8,7 @@
             <a href="/discover/{{$campaign->id}}">{{$campaign->title}} </a>
         </h2>
 
-        <p class="campaign-description">{{$campaign->description}}</p>
+        <p class="campaign-description">{{ \Illuminate\Support\Str::limit(strip_tags($campaign->description), 100) }}</p>
         <div class="campaign-stats">
           <div class="stat">
             <span class="stat-value">{{ $campaign->uniqueInvestorsCount }}</span>

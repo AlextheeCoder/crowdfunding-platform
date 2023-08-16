@@ -12,7 +12,7 @@
         <div class="project-card">
           <img src="{{$campaign->image ? asset('storage/' . $campaign->image) : asset('/images/homies.jpg')}}"  alt="{{ $campaign->title }}">
             <h3><a href="/discover/{{$campaign->id}}"> {{ $campaign->title }}</a></h3>
-            <p>{{ $campaign->description }}</p>
+            <p>{{ \Illuminate\Support\Str::limit(strip_tags($campaign->description), 100) }}</p>
         </div>
         @endforeach
       </section>

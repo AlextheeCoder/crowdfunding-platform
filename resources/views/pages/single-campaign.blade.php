@@ -32,9 +32,9 @@
           @endauth
         </div>
       </div>
-      <div class="description">
+      <div class="description" >
         <h3>About This  Campaign</h3>
-        <p>{{$campaign->description}}</p>
+        <p> {!! $campaign->description !!}</p>
       </div>
       <div class="overlay" id="overlay" style="display: none"></div>
       <div class="loading-spinner" id="loading-spinner" style="display: none;">

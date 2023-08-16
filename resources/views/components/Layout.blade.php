@@ -72,7 +72,7 @@
   </main>
   
   <footer>
-    <p>&copy; 2023 Alenderx. All rights reserved.</p>
+    <p>&copy; 2023 Alenderx by Alex Mwai Muthee. All rights reserved.</p>
   </footer>
   <x-flash-message />
 </body>

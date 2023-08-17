@@ -71,17 +71,17 @@ class CampaignController extends Controller
 
     
         // Get the filtered campaigns
-        $campaigns = $query->get();
+        $campaigns = $query->paginate(6);
         $allCampaigns = Campaign::all();
     
         // Calculate the number of unique investors and total amount pledged for each campaign
-        $campaigns->each(function ($campaign) {
+        foreach ($campaigns->items() as $campaign) {
             $uniqueInvestorsCount = $campaign->pledges->pluck('user_id')->unique()->count();
             $campaign->uniqueInvestorsCount = $uniqueInvestorsCount;
-    
+        
             $totalPledged = $campaign->pledges->sum('amount');
             $campaign->totalPledged = $totalPledged;
-        });
+        }
     
         return view("pages.discover")->with([
             'campaigns' => $campaigns,

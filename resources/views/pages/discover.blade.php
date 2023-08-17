@@ -66,10 +66,14 @@
             <p>No campaigns found</p>
             @endunless
           </div>
+         
+          
        </div>
+       <div class="pagination">{{ $campaigns->appends(request()->query())->links() }}</div>
+        
+   
      
       
    </div>
-
-      
+   
 </x-layout>

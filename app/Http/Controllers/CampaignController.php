@@ -54,8 +54,8 @@ class CampaignController extends Controller
         case 'popular':
             // Sort by the number of unique investors
             $query->withCount(['pledges as unique_investors_count' => function ($query) {
-                $query->select(DB::raw('DISTINCT(user_id)'));
-            }])->orderBy('unique_investors_count', 'desc');
+                $query->select(DB::raw('count(DISTINCT user_id)'));
+            }])->orderBy('unique_investors_count', 'desc');            
             break;
         case 'price_low_to_high':
             $query->orderBy('target', 'asc');

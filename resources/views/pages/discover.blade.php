@@ -1,8 +1,7 @@
 <x-layout>
   
    <div class="discover">
-       <div class="tttext">
-       </div>
+       
        <div class="abtext">
           
            <div class="tttext">
@@ -66,14 +65,32 @@
             <p>No campaigns found</p>
             @endunless
           </div>
-         
-          
-       </div>
-       
         
-   
-     
+
+         
+       </div>
+       <bootstrap-isolated>
+        <div class="pagination d-flex justify-content-center">
+          {{ $campaigns->appends(request()->query())->links('pagination::bootstrap-4') }}
+      </div>
       
+      </bootstrap-isolated>
    </div>
-   
+
+   <script>
+    class BootstrapIsolated extends HTMLElement {
+      connectedCallback() {
+        const content = this.innerHTML;
+        this.attachShadow({ mode: 'open' }).innerHTML = `
+          <!-- Add Bootstrap CSS -->
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+          ${content}
+        `;
+      }
+    }
+  
+    // Define the custom element
+    customElements.define('bootstrap-isolated', BootstrapIsolated);
+</script>
+
 </x-layout>

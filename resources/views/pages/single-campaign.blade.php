@@ -6,31 +6,39 @@
           <img src="{{$campaign->image ? asset('storage/' . $campaign->image) : asset('/images/homies.jpg')}}" alt="">
         </div>
         <div class="pledgesection">
-          <h4 class="heading">Pledge</h4>
-          @auth
-              <a  class="stats" href="/user/{{$campaign->id}}"> Creator: <span>{{ $campaign->user->name }}</span></a>
-              @else
-              <a  class="stats" href="#"> Creator: <span>{{ $campaign->user->name }}</span></a>
-          @endauth
           
-          <h4 class="stats">Investors: <span>{{ $investorsCount }}</span> </h4>
-          <h4 class="stats">Target in Eth: <span>{{$campaign->target}}</span></h4>
           @auth
- 
-          @if (auth()->user()->ethereum_address)
-          <form method="POST" action="{{ route('campaign.pledge', ['id' => $campaign->id]) }}" id="pledge-form">
-            @csrf
-            <div class="part">
-              <label for="pledge">Amount in ETH</label>
-              <input type="number" id="pledge" name="pledge" step="0.01" required>
-            </div>
-            <div class="part">
-              <button type="submit" id="pledge-button">Pledge</button>
-            </div>
-          </form>
-          @endif
+              <a class="stats" href="/user/{{$campaign->id}}">Creator</a>
+              <span>{{ $campaign->user->name }}</span>
+          @else
+              <a class="stats" href="#">Creator</a>
+              <span>{{ $campaign->user->name }}</span>
           @endauth
-        </div>
+      
+          <h4 class="stats">Investors</h4>
+          <span>{{ $investorsCount }}</span>
+      
+          <h4 class="stats">Target in Eth</h4>
+          <span>{{$campaign->target}}</span>
+          <h4 class="stats">Amount Raised in Eth</h4>
+          <span>{{$amountRaised}}</span>
+      
+          @auth
+              @if (auth()->user()->ethereum_address)
+                  <form method="POST" action="{{ route('campaign.pledge', ['id' => $campaign->id]) }}" id="pledge-form">
+                      @csrf
+                      <div class="part">
+                          <label for="pledge">Amount in ETH</label>
+                          <input type="number" id="pledge" name="pledge" step="0.01" required>
+                      </div>
+                      <div class="part">
+                          <button type="submit" id="pledge-button">Pledge</button>
+                      </div>
+                  </form>
+              @endif
+          @endauth
+      </div>
+      
       </div>
       <div class="description" >
         <h3>About This  Campaign</h3>

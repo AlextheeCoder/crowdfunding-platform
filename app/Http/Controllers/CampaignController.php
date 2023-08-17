@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Pledge;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -89,14 +90,21 @@ class CampaignController extends Controller
     }
     
 
-    public function single(Campaign $campaign){
+    public function single(Campaign $campaign)
+{
+    // Count of distinct investors for the campaign
+    $investorsCount = $campaign->pledges()->distinct('user_id')->count();
 
-        $investorsCount = $campaign->pledges()->distinct('user_id')->count();
-        return view('pages.single-campaign', [
-            'campaign' => $campaign,
-            'investorsCount' => $investorsCount,
-        ]);
-    }
+    // Calculate the amount raised so far for the campaign
+    $amountRaised = $campaign->pledges()->sum('amount');
+
+    return view('pages.single-campaign', [
+        'campaign' => $campaign,
+        'investorsCount' => $investorsCount,
+        'amountRaised' => $amountRaised,
+    ]);
+}
+
 
    
     public function createCampaign(Request $request)
@@ -136,36 +144,36 @@ class CampaignController extends Controller
     
     
 
-        public function pledge($id, Request $request)
-        {
-            // Retrieve the campaign by ID
-            $campaign = Campaign::findOrFail($id);
-            
-            // Validate the pledge amount
-            $request->validate([
-                'pledge' => 'required|numeric',
-            ]);
-            
-            // Retrieve the pledge amount from the request
-            $pledgeAmount = $request->input('pledge');
-            
-            // Subtract the pledge amount from the current target
-            $newTarget = $campaign->target - $pledgeAmount;
-            
-            // Update the target value in the database
-            $campaign->target = $newTarget;
-            $campaign->save();
-            
-            // Create an instance of the PledgeController and call its process method
-            $pledgeController = new PledgeController();
-            $pledgeController->process($id, $request, $campaign->ethereum_address); // Pass ethereum_address here
-            
-            // Return a response indicating the successful update
-            return response()->json([
-                'message' => 'Target amount updated successfully.',
-                'new_target' => $newTarget,
-            ]);
-        }
+    public function pledge($id, Request $request)
+    {
+        // Retrieve the campaign by ID
+        $campaign = Campaign::findOrFail($id);
+        
+        // Validate the pledge amount
+        $request->validate([
+            'pledge' => 'required|numeric',
+        ]);
+        
+        // Retrieve the pledge amount from the request
+        $pledgeAmount = $request->input('pledge');
+        
+        // No need to update the target value in the database as it remains unchanged
+        
+        // Create an instance of the PledgeController and call its process method
+        $pledgeController = new PledgeController();
+        $pledgeController->process($id, $request, $campaign->ethereum_address);
+        
+        // Calculate the amount raised so far
+        $amountRaised = Pledge::where('campaign_id', $id)->sum('amount');
+        
+        // Return a response indicating the successful update
+        return response()->json([
+            'message' => 'Pledge made successfully.',
+            'initial_target' => $campaign->target,
+            'amount_raised' => $amountRaised,
+        ]);
+    }
+    
 
 
         public function delete(Campaign $campaign){

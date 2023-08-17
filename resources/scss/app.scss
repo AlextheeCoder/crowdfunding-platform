@@ -597,21 +597,23 @@ body {
         }
 
         .card-container {
-            flex: 3; // Take up 3 fractions of the space
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between; // Distribute space between cards
+          flex-basis: 75%;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
 
             .card {
-                flex: 1; // Each card takes up 1 fraction of the space
-                // Ensure each card takes up roughly one-third of the container width, minus the left and right margins
-                background-color: #fff;
-                border-radius: 20px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                padding: 16px;
-                margin: 20px;
-                width: 300px;
-
+              flex: 1 1 calc(33.33% - 20px);
+              background-color: #fff;
+              border-radius: 20px;
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+              padding: 16px;
+              margin: 10px;
+              max-width: 300px;
+              min-height: 400px;
+              max-height: 400px;
+                
+                
                 img {
                     width: 100%;
                     height: 100%;

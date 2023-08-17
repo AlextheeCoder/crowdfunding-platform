@@ -47,7 +47,7 @@
       <div class="overlay" id="overlay" style="display: none"></div>
       <div class="loading-spinner" id="loading-spinner" style="display: none;">
         <div class="spinner"></div>
-        <div class="spinner-text" style="border-top: 10px">Loading...</div>
+        <div class="spinner-text" style="margin-top: 10px">Processing Transaction...</div>
       </div>
     </div>
   
@@ -126,7 +126,7 @@
             alert('Pledge failed. Please try again.'); // Display error message
           }
           loadingSpinner.style.display = 'none';
-          overlay.style.display='none';
+          
           // Enable the pledge button again
           pledgeButton.disabled = false;
         });

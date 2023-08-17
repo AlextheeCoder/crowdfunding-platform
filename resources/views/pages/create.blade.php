@@ -46,7 +46,7 @@
       <div class="overlay" id="overlay" style="display: none"></div>
       <div class="loading-spinner" id="loading-spinner" style="display: none;">
         <div class="spinner"></div>
-        <div class="spinner-text" style="border-top: 10px">Loading...</div>
+        <div class="spinner-text" style="margin-top: 10px">Creating Campaign...</div>
       </div>
   </div>
 

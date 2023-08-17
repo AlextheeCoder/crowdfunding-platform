@@ -26,7 +26,7 @@
           
               <div class="part"> 
                 <label for="target">Target in Eth</label>
-                <input type="number" id="target" name="target" step="0.01" required value="{{$campaign->target}}" disabled>
+                <input type="number" id="target" name="target" step="0.01" required value="{{$campaign->target}}" >
               </div>
           
               <div class="part">

@@ -69,7 +69,7 @@
          
           
        </div>
-       <div class="pagination">{{ $campaigns->appends(request()->query())->links() }}</div>
+       
         
    
      

@@ -71,7 +71,7 @@
        </div>
        <bootstrap-isolated>
         <div class="pagination d-flex justify-content-center">
-          {{ $campaigns->appends(request()->query())->links('pagination::bootstrap-4') }}
+          {{ $campaigns->appends(request()->query())->links('pagination::bootstrap-5') }}
       </div>
       
       </bootstrap-isolated>

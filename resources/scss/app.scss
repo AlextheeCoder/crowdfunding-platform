@@ -534,6 +534,7 @@ body {
         display: flex;
         flex-wrap: wrap;
         margin-bottom: 50px;
+        margin-left: 80px;
         justify-content: space-between; // Distribute space between filters and card-container
 
         .filters {
@@ -611,6 +612,7 @@ body {
               box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
               padding: 16px;
               margin: 10px;
+              min-width: 300px;
               max-width: 300px;
               min-height: 400px;
              

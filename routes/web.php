@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PledgeController;
@@ -105,3 +106,7 @@ Route::post('/mark-messages-as-read', [MessageController::class, 'markMessagesAs
 
 //View Certificate
 Route::get('/view-certificate/{id}', [PledgeController::class, 'viewCertificate'])->name('view.certificate');
+
+
+//Admin index page
+Route::get('/admin', [AdminController::class,'index'] );

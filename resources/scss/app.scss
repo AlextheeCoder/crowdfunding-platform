@@ -1356,7 +1356,7 @@ body {
     background-color: #4caf50; /* Green for sent messages */
     color: #fff;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 8px 8px 0px 8px;
     align-self: flex-end; /* Align sent messages to the right */
     margin: 5px;
   }
@@ -1365,7 +1365,7 @@ body {
     background-color: #008ce9; /* Gray for received messages */
     color: #fff;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: 0 8px 8px 8px;
     align-self: flex-start; /* Align received messages to the left */
     margin: 5px;
   }

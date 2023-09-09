@@ -34,6 +34,7 @@ return array(
     'App\\Http\\Middleware\\ValidateSignature' => $baseDir . '/app/Http/Middleware/ValidateSignature.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Kernel' => $vendorDir . '/laravel/pint/app/Kernel.php',
+    'App\\Mail\\SendOtpMail' => $baseDir . '/app/Mail/SendOtpMail.php',
     'App\\Models\\Campaign' => $baseDir . '/app/Models/Campaign.php',
     'App\\Models\\Contact' => $baseDir . '/app/Models/Contact.php',
     'App\\Models\\Message' => $baseDir . '/app/Models/Message.php',

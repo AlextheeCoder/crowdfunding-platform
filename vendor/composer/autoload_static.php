@@ -401,8 +401,8 @@ class ComposerStaticInit0a91784f91686659ed8f7133d3fcaa1e
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -644,6 +644,7 @@ class ComposerStaticInit0a91784f91686659ed8f7133d3fcaa1e
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Kernel' => __DIR__ . '/..' . '/laravel/pint/app/Kernel.php',
+        'App\\Mail\\SendOtpMail' => __DIR__ . '/../..' . '/app/Mail/SendOtpMail.php',
         'App\\Models\\Campaign' => __DIR__ . '/../..' . '/app/Models/Campaign.php',
         'App\\Models\\Contact' => __DIR__ . '/../..' . '/app/Models/Contact.php',
         'App\\Models\\Message' => __DIR__ . '/../..' . '/app/Models/Message.php',

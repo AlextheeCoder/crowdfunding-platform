@@ -6,13 +6,24 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Pledge;
 use App\Models\Campaign;
+use App\Mail\SendOtpMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
     //
+    //view admin Login
+    public function login(){
+
+        return view("admin.auth.login");
+    }
+    public function verify() {
+        return view("admin.auth.logOTP");
+    }
+
     public function index() {
         $campaignCount = Campaign::count();
         $userCount = User::count();
@@ -46,6 +57,66 @@ class AdminController extends Controller
                 'numberOfPledgesPerDay' => $numberOfPledgesPerDay,
             ]
         ]);
+    }
+
+    public function authenticate(Request $request)
+    {
+        $formFields = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required'
+        ]);
+    
+        if(auth()->attempt($formFields)) {
+            $user = auth()->user();
+            if($user->role !== 'admin') {
+                return redirect('/admin/login')->with('message', 'Not an admin user.');
+            }
+    
+            // Generate OTP
+            $otp = rand(100000, 999999);
+            $user = User::where('email', $formFields['email'])->first();
+            $user->otp_code = $otp;
+            $user->save();
+    
+            // Store the email in the session
+            session(['email' => $formFields['email']]);
+    
+            // Send OTP to admin's email
+            Mail::to($user->email)->send(new SendOtpMail($otp));
+    
+            // Redirect to OTP verification page
+            return redirect('/admin/verify-login-otp');
+        } else {
+            return redirect('/admin/login')->with('message', 'Wrong credentials!!');
+        }
+    }
+    
+
+    public function verifyLoginOtp(Request $request)
+    {
+        $request->validate([
+            'otp' => 'required|numeric',
+        ]);
+    
+        $email = session('email');
+        $user = User::where('email', $email)->first();
+    
+        if ($user && $request->otp == $user->otp_code) {
+            // OTP is valid, complete the login process
+            $user->otp_code = null; // Clear the OTP code
+            $user->save();
+    
+            // Log the user in
+            auth()->login($user);
+    
+            // Clear the email from the session
+            $request->session()->forget('email');
+    
+            return redirect('/admin')->with('message', 'You are now logged in!');
+        } else {
+            // OTP is invalid, redirect back with an error message
+            return redirect('/verify-login-otp')->with('message', 'Invalid OTP.');
+        }
     }
     
 }

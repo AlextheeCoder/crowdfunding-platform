@@ -160,6 +160,7 @@ class UserController extends Controller
             // Log the user in
             auth()->login($user);
     
+            
             // Clear the email from the session
             $request->session()->forget('email');
     

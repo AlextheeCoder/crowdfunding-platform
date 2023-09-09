@@ -3,6 +3,7 @@
         <div class="container">
             <div class="heading">
                 <h2>Verify OTP</h2>
+                <h5 style="color: gray">We have sent an OTP to your email address</h5>
             </div>
             <div class="formcont">
                 <form method="POST" action="/verify-login-otp">

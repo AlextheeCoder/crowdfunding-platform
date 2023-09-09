@@ -62,7 +62,7 @@ Route::put('/campaigns/{campaign}', [CampaignController::class, 'update'])->name
 Route::delete('/Campaign/{campaign}', [CampaignController::class, 'delete'])->name('campaign.delete');
 
 
-//LShow login form
+//Show login form
 Route::get('/login', [UserController::class, 'login']);
 
 
@@ -127,3 +127,7 @@ Route::get('/admin/login' , [AdminController::class, 'login']);
 Route::post('/admin/authenticate', [AdminController::class, 'authenticate']);
 Route::get('/admin/verify-login-otp', [AdminController::class, 'verify']);
 Route::post('/admin/verify-login-otp', [AdminController::class, 'verifyLoginOtp']);
+
+
+//Admin Log Out
+Route::post('/admin/logout', [AdminController::class, 'logout']);

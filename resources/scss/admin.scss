@@ -365,6 +365,22 @@ nav {
             background: var(--grey);
           }
         }
+        .logout-btn{
+          width: 160px;
+          background-color: white;
+          border: none;
+          text-align: left;
+          padding: 10px 0;
+          align-items: center;
+          font-size: 14px;
+          grid-gap: 10px;
+          display: flex;
+
+          &:hover{
+            cursor: pointer;
+            background-color: #f03434;
+          }
+        }
       }
     }
   }

@@ -119,4 +119,13 @@ class AdminController extends Controller
         }
     }
     
+
+    function logout(Request $request){
+        // Perform the regular logout actions
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
+        return redirect('/')->with('message', 'You have been logged out!');
+    }
 }

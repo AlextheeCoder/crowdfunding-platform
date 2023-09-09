@@ -19,7 +19,15 @@
       </div>
       <ul class="menu">
         <li><a href="/discover">Discover</a></li>
+        
         @auth
+        @if (auth()->user()->role == "admin")
+        <li><a href="/admin">Admin Panel</a></li>
+        @endif
+       
+        @if (auth()->user()->role == "user")
+          
+        
  
         @if (!auth()->user()->ethereum_address)
         <div class="logout">
@@ -55,7 +63,7 @@
             </form>
           </div>
         </div>
-
+        @endif
         
 
         @else

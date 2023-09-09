@@ -7,6 +7,7 @@ use App\Mail\SendOtpMail;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
@@ -117,14 +118,13 @@ class UserController extends Controller
             'password' => 'required'
         ]);
     
-        if(auth()->attempt($formFields)) {
-            $request->session()->regenerate();
+        // Retrieve the user instance directly from the database
+        $user = User::where('email', $formFields['email'])->first();
     
+        // Check if the user exists and the password is correct
+        if ($user && Hash::check($formFields['password'], $user->password)) {
             // Generate OTP
             $otp = rand(100000, 999999);
-    
-            // Retrieve the user instance directly from the database
-            $user = User::where('email', $formFields['email'])->first();
             $user->otp_code = $otp;
             $user->save();
     
@@ -141,8 +141,6 @@ class UserController extends Controller
         }
     }
     
-
-
     public function verifyLoginOtp(Request $request)
     {
         $request->validate([
@@ -160,7 +158,6 @@ class UserController extends Controller
             // Log the user in
             auth()->login($user);
     
-            
             // Clear the email from the session
             $request->session()->forget('email');
     
@@ -170,6 +167,7 @@ class UserController extends Controller
             return redirect('/verify-login-otp')->with('message', 'Invalid OTP.');
         }
     }
+    
     
 
 

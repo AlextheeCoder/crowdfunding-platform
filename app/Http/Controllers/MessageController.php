@@ -152,15 +152,20 @@ public function markMessagesAsRead(Request $request)
 
 public function getUnreadMessageCount()
 {
-    // Get the currently authenticated user
-    $user = auth()->user();
+    if (auth()->check()) {
+        // Get the currently authenticated user
+        $user = auth()->user();
 
-    // Count the number of unread messages for the user
-    $unreadCount = Message::where('receiver_id', $user->id)
-        ->where('read', false) // Assuming you added the 'read' column to the messages table
-        ->count();
+        // Count the number of unread messages for the user
+        $unreadCount = Message::where('receiver_id', $user->id)
+            ->where('read', false) // Assuming you added the 'read' column to the messages table
+            ->count();
 
-    return response()->json(['unread_count' => $unreadCount]);
+        return response()->json(['unread_count' => $unreadCount]);
+    } else {
+        return response()->json(['error' => 'User not authenticated'], 401);
+    }
 }
+
     
 }

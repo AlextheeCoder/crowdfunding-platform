@@ -110,3 +110,10 @@ Route::get('/view-certificate/{id}', [PledgeController::class, 'viewCertificate'
 
 //Admin index page
 Route::get('/admin', [AdminController::class,'index'] );
+
+
+//OTP ROUTES
+Route::get('/verify-registration-otp', [UserController::class, 'regOTP']);
+Route::post('/verify-registration-otp', [UserController::class, 'verifyRegistrationOtp']);
+Route::get('/verify-login-otp', [UserController::class, 'logOTP']);
+Route::post('/verify-login-otp', [UserController::class, 'verifyLoginOtp']);

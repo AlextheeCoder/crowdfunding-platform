@@ -215,8 +215,8 @@ body {
       display: inline-block;
       vertical-align: top;
       width: calc(33.33% - 40px);
-      min-height: 500px;
-      max-height: 500px;
+      min-height: 400px;
+      max-height: 400px;
       margin: 20px;
       padding: 20px;
       background-color: #f5f5f5;
@@ -273,6 +273,22 @@ body {
     border-radius: 20px;
     margin-top: 40px;
   }
+
+  .error{
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #c71010;
+    color: #ffffff;
+    padding-left: 48px;
+    padding-right: 48px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 20px;
+    margin-top: 40px;
+  }
+  
   
   /* Footer styles */
   footer {

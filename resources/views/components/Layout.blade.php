@@ -84,12 +84,14 @@
     <p>&copy; 2023 Alenderx by Alex Mwai Muthee. All rights reserved.</p>
   </footer>
   <x-flash-message />
+  <x-flash-error />
 </body>
 <!-- Add this script tag to your Blade file or include your separate JavaScript file -->
 
 <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{{ asset('js/metamask.js') }}"></script>
+@auth
 <script>
   function updateUnreadMessageCount() {
     const unreadCountElement = document.getElementById('unread-count');
@@ -111,5 +113,7 @@
   // Periodically update the unread message count every 10 seconds
   setInterval(updateUnreadMessageCount, 10000); // 10000 milliseconds = 10 seconds
 </script>
+@endauth
+
 
 </html>

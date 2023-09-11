@@ -16,10 +16,19 @@ class AdminController extends Controller
 {
     //
     //view admin Login
-    public function login(){
-
-        return view("admin.auth.login");
+    public function login()
+    {
+        if(!auth()->check()) {
+           
+            return view("admin.auth.login");
+        }
+        else {
+            return redirect('/')->with('message', 'You are already logged in. Please log out first before accessing the login page.');
+        }
+    
+      
     }
+    
     public function verify() {
         return view("admin.auth.logOTP");
     }
@@ -66,15 +75,15 @@ class AdminController extends Controller
             'password' => 'required'
         ]);
     
-        if(auth()->attempt($formFields)) {
-            $user = auth()->user();
+        if(auth()->validate($formFields)) {
+            $user = User::where('email', $formFields['email'])->first();
+    
             if($user->role !== 'admin') {
                 return redirect('/admin/login')->with('message', 'Not an admin user.');
             }
     
             // Generate OTP
             $otp = rand(100000, 999999);
-            $user = User::where('email', $formFields['email'])->first();
             $user->otp_code = $otp;
             $user->save();
     

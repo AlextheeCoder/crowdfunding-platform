@@ -28,40 +28,8 @@ class UserController extends Controller
         return view("auth.logOTP");
 
     }
-    public function store(Request $request) {
-        $formFields = $request->validate([
-            'name' => ['required', 'min:3'],
-            'email' => ['required', 'email', Rule::unique('users', 'email')],
-            'password' => 'required'
-        ]);
-    
-        //get profile image
-        if ($request->hasFile('profile')) {
-            $formFields['profile'] = $request->file('profile')->store('profiles', 'public');
-        }
-    
-        // Hash Password
-        $formFields['password'] = bcrypt($formFields['password']);
-    
-        // Create User
-        $user = User::create($formFields);
 
-        // Generate OTP
-        $otp = rand(100000, 999999);
-        $user->otp_code = $otp;
-        $user->save();
-
-        // Store email in session for OTP verification
-        session(['email' => $formFields['email']]);
-
-        // Send OTP to user's email
-        Mail::to($user->email)->send(new SendOtpMail($otp));
-
-        // Redirect to OTP verification page
-        return redirect('/verify-registration-otp');
-    }
-    
-
+    //Log Out
     public function logout(Request $request)
     {
         // Check if the user is authenticated
@@ -80,38 +48,74 @@ class UserController extends Controller
         return redirect('/')->with('message', 'You have been logged out and wallet disconnected!');
     }
 
-
-    //Generate OTP
-    public function verifyRegistrationOtp(Request $request)
-    {
-        $request->validate([
-            'otp' => 'required|numeric',
+    //Register Users
+    public function store(Request $request) {
+        $formFields = $request->validate([
+            'name' => ['required', 'min:3'],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'min:6']
         ]);
     
-        $email = session('email');
-        $user = User::where('email', $email)->first();
-    
-        if ($user && $request->otp == $user->otp_code) {
-            // OTP is valid, complete the registration process
-            $user->otp_code = null; // Clear the OTP code
-            $user->save();
-    
-            // Log the user in
-            auth()->login($user);
-    
-            // Clear the email from the session
-            $request->session()->forget('email');
-    
-            return redirect('/')->with('message', 'Registration successful!');
-        } else {
-            // OTP is invalid, redirect back with an error message
-            return redirect('/verify-registration-otp')->with('message', 'Invalid OTP.');
+        //get profile image
+        if ($request->hasFile('profile')) {
+            $formFields['profile'] = $request->file('profile')->store('profiles', 'public');
         }
-    }
     
+        // Hash Password
+        $formFields['password'] = bcrypt($formFields['password']);
+    
+        // Generate OTP
+        $otp = rand(100000, 999999);
+    
+        // Store user details and OTP in session for OTP verification
+        session(['user_details' => $formFields, 'otp_code' => $otp, 'email' => $formFields['email']]);
+    
+        // Send OTP to user's email
+        Mail::to($formFields['email'])->send(new SendOtpMail($otp));
+    
+        // Redirect to OTP verification page
+        return redirect('/verify-registration-otp');
+    }
+
+    public function verifyRegistrationOtp(Request $request)
+{
+    $request->validate([
+        'otp' => 'required|numeric',
+    ]);
+
+    $email = session('email');
+    $otp_code = session('otp_code');
+    $userDetails = session('user_details');
+
+    if ($userDetails && $request->otp == $otp_code) {
+        // OTP is valid, complete the registration process
+
+        // Create User
+        $user = User::create($userDetails);
+
+        // Clear the OTP code
+        $user->otp_code = null;
+        $user->save();
+
+        // Log the user in
+        auth()->login($user);
+
+        // Clear the user details and OTP code from the session
+        $request->session()->forget(['email', 'otp_code', 'user_details']);
+
+        return redirect('/')->with('message', 'Registration successful!');
+    } else {
+        // OTP is invalid, redirect back with an error message
+        return redirect('/verify-registration-otp')->with('error', 'Invalid OTP.');
+    }
+}
+
     
     
 
+
+    
+//Authenticate ---------------------------------------------------------------------
     public function authenticate(Request $request) {
         $formFields = $request->validate([
             'email' => ['required', 'email'],
@@ -137,7 +141,7 @@ class UserController extends Controller
             // Redirect to OTP verification page
             return redirect('/verify-login-otp');
         } else {
-            return redirect('/login')->with('message', 'Wrong credentials!!');
+            return redirect('/login')->with('error', 'Wrong credentials!!');
         }
     }
     
@@ -164,7 +168,7 @@ class UserController extends Controller
             return redirect('/')->with('message', 'You are now logged in!');
         } else {
             // OTP is invalid, redirect back with an error message
-            return redirect('/verify-login-otp')->with('message', 'Invalid OTP.');
+            return redirect('/verify-login-otp')->with('error', 'Invalid OTP.');
         }
     }
     
@@ -208,7 +212,7 @@ class UserController extends Controller
         $user = User::find($id);
         if (!$user) {
             // Handle the case where the user with the given $id is not found
-            return redirect('/profile')->with('message', 'User not found.');
+            return redirect('/profile')->with('error', 'User not found.');
         }
     
         // Update the user data

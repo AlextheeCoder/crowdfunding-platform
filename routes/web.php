@@ -118,8 +118,9 @@ Route::get('/verify-registration-otp', [UserController::class, 'regOTP']);
 Route::post('/verify-registration-otp', [UserController::class, 'verifyRegistrationOtp']);
 Route::get('/verify-login-otp', [UserController::class, 'logOTP']);
 Route::post('/verify-login-otp', [UserController::class, 'verifyLoginOtp']);
-
-
+//Resend OTP
+Route::get('/resend-otp', [UserController::class, 'resendOtp'])->name('resend-otp'); 
+Route::get('/resend-registration-otp', [UserController::class, 'resendRegOtp'])->name('resendRegOtp');
 //Admin Login
 Route::get('/admin/login' , [AdminController::class, 'login']);
 

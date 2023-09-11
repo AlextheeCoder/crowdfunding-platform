@@ -17,7 +17,7 @@ class CheckRole
     {
         if (!auth()->check() || auth()->user()->role !== $role) {
             // If the user is not logged in or does not have the required role, redirect to the login page
-            return redirect('/admin/login')->with('error', 'You do not have access to this page');
+            return redirect('/admin/login')->with('error', 'You do not have access to this page. Login to access it!');
         }
     
         return $next($request);

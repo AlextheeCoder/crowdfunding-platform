@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('role')->default('user');
             $table->string('otp_code')->nullable();
             $table->timestamp('otp_created_at')->nullable();
+            $table->string('reset_token')->nullable();
+            $table->timestamp('reset_token_expiry')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

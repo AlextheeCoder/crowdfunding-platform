@@ -26,7 +26,7 @@ Route::get('/',[FeaturedController::class, 'index']);
 Route::get('/unread-messages-count', [MessageController::class, 'getUnreadMessageCount']);
 
 //Showing Create canpaign page
-Route::get('/create', [CampaignController::class,'show']);
+Route::get('/create', [CampaignController::class,'show'])->middleware('auth');;
 
 //Creating Campaign
 Route::post('/campaign/create', [CampaignController::class, 'createCampaign'])->name('campaign.create');
@@ -63,7 +63,7 @@ Route::delete('/Campaign/{campaign}', [CampaignController::class, 'delete'])->na
 
 
 //Show login form
-Route::get('/login', [UserController::class, 'login']);
+Route::get('/login', [UserController::class, 'login'])->name('login');
 
 
 
@@ -78,21 +78,21 @@ Route::post('/store/address', [UserController::class, 'storeAddress'])->name('us
 
 
 //Show profile page
-Route::get('/profile',[UserController::class, 'profile']);
+Route::get('/profile',[UserController::class, 'profile'])->middleware('auth');
 
 
 //Show campaign creator
-Route::get('/user/{campaign}', [CampaignController::class,'show_user']);
+Route::get('/user/{campaign}', [CampaignController::class,'show_user'])->middleware('auth');;
 
 
 //Show messages page
-Route::get('/message', [MessageController::class,'show']);
+Route::get('/message', [MessageController::class,'show'])->middleware('auth');;
 
 //Get Contacts
-Route::get('/contacts', [MessageController::class, 'getContacts']);
+Route::get('/contacts', [MessageController::class, 'getContacts'])->middleware('auth');;
 
 //Get Messages
-Route::get('/messages/{contactId}', [MessageController::class, 'getMessages']);
+Route::get('/messages/{contactId}', [MessageController::class, 'getMessages'])->middleware('auth');;
 
 //Send Messages
 Route::post('/send', [MessageController::class, 'sendMessage']);
@@ -132,3 +132,10 @@ Route::post('/admin/verify-login-otp', [AdminController::class, 'verifyLoginOtp'
 
 //Admin Log Out
 Route::post('/admin/logout', [AdminController::class, 'logout']);
+
+//Routes for forgot password
+Route::get('/password/reset', [UserController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::post('/password/email', [UserController::class, 'handleForgotPassword'])->name('password.email');
+Route::get('/password/reset/{token}', [UserController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::post('/password/reset', [UserController::class, 'handleResetPassword'])->name('password.update');
+Route::get('/email-sent', [UserController::class, 'showemailwassent'])->name('email.sent');

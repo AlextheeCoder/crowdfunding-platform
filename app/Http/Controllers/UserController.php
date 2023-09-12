@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Mail\SendOtpMail;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Mail\SendResetLinkEmail;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -28,6 +30,17 @@ class UserController extends Controller
     public function logOTP(){
         return view("auth.logOTP");
 
+    }
+    public function showForgotPasswordForm(){
+        return view('auth.forgot_password');
+    }
+
+    public function showResetPasswordForm($token){
+        return view('auth.reset_password', ['token' => $token]);
+    }
+
+    public function showemailwassent(){
+       return view("auth.emeilsent");
     }
 
     //Log Out
@@ -156,7 +169,7 @@ class UserController extends Controller
             // Redirect to OTP verification page
             return redirect('/verify-login-otp');
         } else {
-            return redirect('/login')->with('error', 'Wrong credentials!!');
+            return redirect('/login')->with('error', 'Wrong credentials!!')->with('showResetLink', true);
         }
     }
     
@@ -236,6 +249,52 @@ public function resendRegOtp()
         return redirect('/verify-registration-otp')->with('message', 'A new OTP has been sent to your email.');
     } else {
         return redirect('/verify-registration-otp')->with('error', 'Error resending OTP. Please try again.');
+    }
+}
+
+/////////////Forgot Password //////////////////////////////////////////////////
+
+public function handleForgotPassword(Request $request)
+{
+    $request->validate(['email' => 'required|email|exists:users,email']);
+
+    $user = User::where('email', $request->email)->first();
+    if($user){
+        $token = Str::random(60);
+        $user->reset_token = Hash::make($token);
+        $user->reset_token_expiry = now()->addMinutes(30);
+        $user->save();
+    
+        // Store email in session
+        session(['reset_email' => $request->email]);
+
+        // Send reset link to user's email
+        Mail::to($user->email)->send(new SendResetLinkEmail($token));
+    }
+
+    return redirect()->route('email.sent')->with('message', 'Reset link sent to your email.');
+}
+
+
+public function handleResetPassword(Request $request)
+{
+    $request->validate([
+        'token' => 'required',
+        'email' => 'required|email|exists:users,email',
+        'password' => ['required', 'min:6']
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if ($user && Hash::check($request->token, $user->reset_token) && now()->lessThan($user->reset_token_expiry)) {
+        $user->password = bcrypt($request->password);
+        $user->reset_token = null;
+        $user->reset_token_expiry = null;
+        $user->save();
+
+        return redirect('/login')->with('message', 'Password reset successful.');
+    } else {
+        return redirect()->route('password.request')->with('error', 'Invalid or expired reset link.');
     }
 }
 

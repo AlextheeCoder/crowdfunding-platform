@@ -115,6 +115,11 @@ class CampaignController extends Controller
             'description' => 'required|string',
             'target' => 'required',
             'date' => 'required|date',
+            'offering_type' => 'required|string',
+            'asset_type' => 'nullable|string',
+            'price_per_share' => 'nullable|numeric',
+            'valuation' => 'nullable|numeric',
+            'min_investment' => 'nullable|numeric',
             
             
         ]);

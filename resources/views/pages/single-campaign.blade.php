@@ -40,10 +40,22 @@
       </div>
       
       </div>
-      <div class="description" >
-        <h3>About This  Campaign</h3>
-        <p> {!! $campaign->description !!}</p>
+      <div class="description-container">
+      
+        <div class="description" >
+          <h3>About This  Campaign</h3>
+          <p> {!! $campaign->description !!}</p>
+        </div>
+        <div class="investment-details">
+          <h3>Investment Details</h3>
+          <p><strong>Offering Type:</strong> {{ $campaign->offering_type }}</p>
+          <p><strong>Asset Type:</strong> {{ $campaign->asset_type }}</p>
+          <p><strong>Price Per Share:</strong> {{ $campaign->price_per_share }}</p>
+          <p><strong>Valuation:</strong> {{ $campaign->valuation }}</p>
+          <p><strong>Min Investment:</strong> {{ $campaign->min_investment }}</p>
+        </div>
       </div>
+      
       <div class="overlay" id="overlay" style="display: none"></div>
       <div class="loading-spinner" id="loading-spinner" style="display: none;">
         <div class="spinner"></div>

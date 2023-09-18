@@ -18,6 +18,11 @@ class Campaign extends Model
         'target',
         'deadline',
         'image',
+        'offering_type',
+        'asset_type',
+        'price_per_share',
+        'valuation',
+        'min_investment',
     ];
 
     public function scopeFilter($query, array $filters) {

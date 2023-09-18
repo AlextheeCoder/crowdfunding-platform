@@ -20,6 +20,11 @@ return new class extends Migration
             $table->text('description');
             $table->float('target');
             $table->date('deadline');
+            $table->string('offering_type');
+            $table->string('asset_type')->nullable();
+            $table->float('price_per_share')->nullable();
+            $table->float('valuation')->nullable();
+            $table->float('min_investment')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         

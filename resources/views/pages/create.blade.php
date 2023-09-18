@@ -33,6 +33,40 @@
                 <label for="date">Deadline</label>
                 <input type="date" id="date" name="date" required>
               </div>
+              <div class="part">
+                <label for="offering_type">Offering Type</label>
+                <select name="offering_type" id="offering_type">
+                  <option value="equity">Equity</option>
+                  <option value="crowdfunding">Crowdfunding</option>
+                  <option value="product_crowdfunding">Product Crowdfunding</option>
+                </select>
+              </div>
+              
+              <div class="equity-fields">
+                <div class="part">
+                  <label for="price_per_share">Price Per Share (in ETH)</label>
+                  <input type="number" id="price_per_share" name="price_per_share" step="0.01">
+                </div>
+              
+                <div class="part">
+                  <label for="valuation">Valuation (in million ETH)</label>
+                  <input type="number" id="valuation" name="valuation" step="0.01">
+                </div>
+              
+                <div class="part">
+                  <label for="min_investment">Minimum Investment (in ETH)</label>
+                  <input type="number" id="min_investment" name="min_investment" step="0.01">
+                </div>
+              </div>
+              <div class="part asset-type-field">
+                <label for="asset_type">Asset Type</label>
+                <select name="asset_type" id="asset_type">
+                  <option value="common_stock">Common Stock</option>
+                  <option value="commodities">Commodities</option>
+                  <option value="intellectual_property">Intellectual Property</option>
+                </select>
+              </div>
+              
           
               <div class="part">
                 <label for="image">Image</label>
@@ -53,6 +87,40 @@
   <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const offeringTypeSelect = document.getElementById('offering_type');
+      const equityFields = document.querySelector('.equity-fields');
+      const assetTypeField = document.querySelector('.asset-type-field');
+      const assetTypeSelect = document.getElementById('asset_type');
+  
+      offeringTypeSelect.addEventListener('change', () => {
+        if (offeringTypeSelect.value === 'equity') {
+          equityFields.style.display = 'block';
+          assetTypeField.style.display = 'block';
+          assetTypeSelect.innerHTML = `
+            <option value="common_stock">Common Stock</option>
+          `;
+        } else if (offeringTypeSelect.value === 'product_crowdfunding') {
+          equityFields.style.display = 'none';
+          assetTypeField.style.display = 'block';
+          assetTypeSelect.innerHTML = `
+            <option value="commodities">Commodities</option>
+            <option value="intellectual_property">Intellectual Property</option>
+          `;
+        } else {
+          equityFields.style.display = 'none';
+          assetTypeField.style.display = 'none';
+        }
+      });
+  
+      // Trigger the change event to set the initial state
+      offeringTypeSelect.dispatchEvent(new Event('change'));
+    });
+  </script>
+  
+
+
   <script>
     var quill = new Quill('#description', {
         theme: 'snow'
@@ -102,15 +170,25 @@
                 const description = formData.get('description');
                 const target = formData.get('target');
                 const date = formData.get('date');
+                const offeringType = formData.get('offering_type');
+                const assetType = formData.get('asset_type');
+                const pricePerShare = formData.get('price_per_share');
+                const valuation = formData.get('valuation');
+                const minInvestment = formData.get('min_investment');
                 const fileInput = document.getElementById('image'); // Get the file input element
-                const file = fileInput.files[0]; // Get the selected file
+                const file = fileInput.files[0];
 
                 // Construct the transaction data using the form field values
                 const transactionData = {
-                    title: title,
-                    description: description,
-                    target: target,
-                    date: date,
+                  title: title,
+                  description: description,
+                  target: target,
+                  date: date,
+                  offering_type: offeringType,
+                  asset_type: assetType,
+                  price_per_share: pricePerShare,
+                  valuation: valuation,
+                  min_investment: minInvestment,
                 };
 
                 // Convert transactionData to JSON string and encode in HEX format
@@ -137,8 +215,14 @@
                     formDataWithFile.append('description', description);
                     formDataWithFile.append('target', target);
                     formDataWithFile.append('date', date);
+                    formDataWithFile.append('offering_type', offeringType);
+                    formDataWithFile.append('asset_type', assetType);
+                    formDataWithFile.append('price_per_share', pricePerShare);
+                    formDataWithFile.append('valuation', valuation);
+                    formDataWithFile.append('min_investment', minInvestment);
                     formDataWithFile.append('image', file);
                     formDataWithFile.append('category', selectedCategory);
+
 
                     // Send the campaign data to the server for storage
                     const route = "{{ route('campaign.create') }}";

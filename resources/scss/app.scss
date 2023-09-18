@@ -905,6 +905,10 @@ body {
             a {
               text-decoration: none;
               color: #0655ca;
+
+              &:hover{
+                color: #f80909;
+              }
             }
           }
   

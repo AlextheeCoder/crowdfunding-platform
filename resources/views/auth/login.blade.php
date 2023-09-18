@@ -22,7 +22,7 @@
                         <span>Don't have an accornt <a href="/register" alt=#>Register</a></span>
                     </div>
                     @if(session('showResetLink'))
-                    <div class="notlogin">
+                    <div class="notlogin" style="margin-top: 8px;">
                         <span>Forgot password? <a href="{{ route('password.request') }}"> Click here to reset</a></span>
                     </div>
                 @endif

@@ -805,14 +805,10 @@ body {
     }
     .description-container {
   display: flex;
-  justify-content: space-between;
   margin-top: 40px;
   margin-bottom: 100px;
 }
 
-.description, .investment-details {
-  width: 45%; /* Adjust the width as necessary */
-}
 
   
     .description {
@@ -847,7 +843,10 @@ body {
       flex-direction: column;
       align-items: flex-start; /* Align items to the start */
       text-align: left; /* Align text to the left */
-      
+      border-top: 2px solid green;
+      border-bottom: 2px solid green;
+      height: 50%;
+      margin-left: 100px;
       h3 {
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         text-decoration: underline;

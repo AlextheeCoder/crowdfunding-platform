@@ -49,11 +49,17 @@
         <div class="investment-details">
           <h3>Investment Details</h3>
           <p><strong>Offering Type:</strong> {{ $campaign->offering_type }}</p>
-          <p><strong>Asset Type:</strong> {{ $campaign->asset_type }}</p>
-          <p><strong>Price Per Share:</strong> {{ $campaign->price_per_share }}</p>
-          <p><strong>Valuation:</strong> {{ $campaign->valuation }}</p>
-          <p><strong>Min Investment:</strong> {{ $campaign->min_investment }}</p>
-        </div>
+      
+          @if($campaign->offering_type == 'equity')
+              <p><strong>Asset Type:</strong> {{ $campaign->asset_type }}</p>
+              <p><strong>Price Per Share:</strong> {{ $campaign->price_per_share }}</p>
+              <p><strong>Valuation:</strong> {{ $campaign->valuation }}</p>
+              <p><strong>Min Investment:</strong> {{ $campaign->min_investment }}</p>
+          @elseif($campaign->offering_type == 'product_crowdfunding')
+              <p><strong>Asset Type:</strong> {{ $campaign->asset_type }}</p>
+          @endif
+      </div>
+      
       </div>
       
       <div class="overlay" id="overlay" style="display: none"></div>

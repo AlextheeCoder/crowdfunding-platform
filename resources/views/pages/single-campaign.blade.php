@@ -72,6 +72,9 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+    
+    </script>
+    <script>
       (async function () {
         // Check if MetaMask is installed and enable Ethereum provider
         if (typeof window.ethereum !== 'undefined') {

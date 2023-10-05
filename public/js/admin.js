@@ -164,34 +164,3 @@ allProgress.forEach(item=> {
 
 
 // APEXCHART
-var options = {
-  series: [{
-  name: 'Total Funds Raised',
-  data: chartData.totalPledgesPerDay
-}, {
-	name: 'Number of Pledges',
-  data: chartData.numberOfPledgesPerDay
-}],
-  chart: {
-  height: 350,
-  type: 'area'
-},
-dataLabels: {
-  enabled: false
-},
-stroke: {
-  curve: 'smooth'
-},
-xaxis: {
-  type: 'datetime',
-  categories: chartData.dates
-},
-tooltip: {
-  x: {
-    format: 'dd/MM/yy HH:mm'
-  },
-},
-};
-
-var chart = new ApexCharts(document.querySelector("#chart"), options);
-chart.render();

@@ -56,7 +56,7 @@
 			<div class="data">
 				<div class="content-data">
 					<div class="head">
-						<h3>Sales Report</h3>
+						<h3>Transactions Report</h3>
 						<div class="menu">
 							<i class='bx bx-dots-horizontal-rounded icon'></i>
 							<ul class="menu-link">
@@ -67,17 +67,96 @@
 						</div>
 					</div>
 					<div class="chart">
-						<div id="chart"></div>
+
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+				<div class="content-data">
+					<div class="head">
+						<h3>Daily Transactions Report</h3>
+						<div class="menu">
+							<i class='bx bx-dots-horizontal-rounded icon'></i>
+							<ul class="menu-link">
+								<li><a href="#">Edit</a></li>
+								<li><a href="#">Save</a></li>
+								<li><a href="#">Remove</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="chart">
+						<canvas id="transactionsChart"></canvas>
 					</div>
 				</div>
 				
 			
 			</div>
+			
 
 
 			<script>
-				var chartData = @json($chartData);
+				const data = {
+					labels: <?php echo json_encode($dates); ?>,
+					datasets: [{
+						label: 'Total Pledge Amount',
+						data: <?php echo json_encode($totalPledgesPerDay); ?>,  // Use the correct variable name here
+						fill: false,
+						borderColor: 'rgb(75, 192, 192)',
+						tension: 0.1
+					}]
+				};
+			
+				const config = {
+					type: 'line',
+					data: data,
+					options: {
+						responsive: true,
+						plugins: {
+							legend: {
+								position: 'top',
+							},
+							title: {
+								display: true,
+								text: 'Pledge Amounts Over Time'
+							}
+						}
+					},
+				};
+				var ctx = document.getElementById('myChart').getContext('2d');
+				var myChart = new Chart(ctx, config);
 			</script>
 
+			<script>
+				const transactionsData = {
+				labels: <?php echo json_encode($dates); ?>,
+				datasets: [{
+					label: 'Daily Transactions (Pledges)',
+					data: <?php echo json_encode($dailyTransactionCounts); ?>,
+					fill: false,
+					borderColor: 'rgb(255, 99, 132)',
+					tension: 0.1
+				}]
+			};
+
+			const transactionsConfig = {
+				type: 'line',
+				data: transactionsData,
+				options: {
+					responsive: true,
+					plugins: {
+						legend: {
+							position: 'top',
+						},
+						title: {
+							display: true,
+							text: 'Daily Transactions (Pledges) Over Time'
+						}
+					}
+				},
+			};
+
+			var transactionsCtx = document.getElementById('transactionsChart').getContext('2d');
+			var transactionsChart = new Chart(transactionsCtx, transactionsConfig);
+
+			</script>
 
 </x-adminlayout>

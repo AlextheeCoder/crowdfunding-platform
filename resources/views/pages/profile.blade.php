@@ -82,8 +82,12 @@
                 <input type="email" name="email" value="{{$user->email}}" placeholder="{{$user->email}}">
             </div>
             <div class="part">
-                <label for="Username">Name</label>
-                <input type="text" name="name" value="{{$user->name}}" placeholder="{{$user->name}}">
+                <label for="Username">First Name</label>
+                <input type="text" name="name" value="{{$user->firstname}}" placeholder="{{$user->firstname}}">
+            </div>
+            <div class="part">
+                <label for="Username">Sir Name</label>
+                <input type="text" name="name" value="{{$user->sirname}}" placeholder="{{$user->sirname}}">
             </div>
             <div class="part">
                 <label for="image">Profile</label>

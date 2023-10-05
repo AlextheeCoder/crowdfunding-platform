@@ -17,7 +17,7 @@
                         <button type="submit" id="create-campaign-button">Submit</button>
                     </div>
                     <div class="notlogin">
-                        <span>Didn't Receive a code<a href="{{ route('resendRegOtp') }}" alt="Resend OTP">Resend</a></span>
+                        <span>Didn't Receive a code<a href="{{ route('resendRegOtp') }}" alt="Resend OTP"> Resend</a></span>
                     </div>
                      <!-- Countdown Timer -->
                      <div id="countdown" style="font-size: 15px; color: red; margin-top: 10px; align-self:center;"></div>

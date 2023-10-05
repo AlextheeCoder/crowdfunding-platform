@@ -39,7 +39,7 @@ class AdminController extends Controller
         $pledgeCount = Pledge::count();
         $dailyPledgeCount = Pledge::whereDate('created_at', '=', Carbon::today())->count();
     
-        // Data for the chart
+        // Data for the total pledge amounts chart
         $dates = Pledge::select(DB::raw('DATE(created_at) as date'))
                        ->groupBy(DB::raw('DATE(created_at)'))
                        ->get()
@@ -50,23 +50,24 @@ class AdminController extends Controller
                                    ->get()
                                    ->pluck('total');
     
-        $numberOfPledgesPerDay = Pledge::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(id) as count'))
-                                      ->groupBy(DB::raw('DATE(created_at)'))
-                                      ->get()
-                                      ->pluck('count');
+        // Data for daily transactions (number of pledges per day)
+        $dailyTransactionCounts = Pledge::select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(id) as count'))
+                                        ->groupBy(DB::raw('DATE(created_at)'))
+                                        ->get()
+                                        ->pluck('count');
     
         return view('admin.index', [
             'campaignCount' => $campaignCount,
             'userCount' => $userCount,
             'pledgeCount' => $pledgeCount,
             'dailyPledgeCount' => $dailyPledgeCount,
-            'chartData' => [
-                'dates' => $dates,
-                'totalPledgesPerDay' => $totalPledgesPerDay,
-                'numberOfPledgesPerDay' => $numberOfPledgesPerDay,
-            ]
+            'dates' => $dates,
+            'totalPledgesPerDay' => $totalPledgesPerDay,
+            'dailyTransactionCounts' => $dailyTransactionCounts,  // Pass the daily transaction counts to the view
         ]);
     }
+    
+    
 
     public function authenticate(Request $request)
     {

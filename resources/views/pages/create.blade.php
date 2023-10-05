@@ -49,7 +49,7 @@
                 </div>
               
                 <div class="part">
-                  <label for="valuation">Valuation (in million ETH)</label>
+                  <label for="valuation">Valuation (ETH)</label>
                   <input type="number" id="valuation" name="valuation" step="0.01">
                 </div>
               

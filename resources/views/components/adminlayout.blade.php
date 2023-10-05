@@ -6,6 +6,7 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	@vite(['resources/css/app.css','resources/scss/admin.scss','resources/js/app.js'])
 	<title>AdminSite</title>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 	

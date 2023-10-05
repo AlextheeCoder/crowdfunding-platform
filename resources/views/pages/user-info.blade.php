@@ -2,7 +2,8 @@
     <div class="user-info">
         <div class="profile-section">
             <img src="{{$campaign->user->profile ? asset('storage/' . $campaign->user->profile) : asset('/images/homies.jpg')}}"  alt="">
-            <h4 class="stats">Name:<span>{{$campaign->user->name}}</span></h4>
+            <h4 class="stats">First Name:<span>{{$campaign->user->firstname}}</span></h4>
+            <h4 class="stats">Sirname:<span>{{$campaign->user->sirname}}</span></h4>
             <h4  class="stats">Email: <span>{{$campaign->user->email}}</span></h4>
             <h4  class="stats">Date joined: <span>{{$campaign->user->created_at}}</span></h4>
             <h4  class="stats">User rating:<span>5</span></h4>

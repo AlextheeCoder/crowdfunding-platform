@@ -9,8 +9,23 @@
                     @csrf
                     <div class="part">
                         
-                        <input type="text" id="name" name="name" required placeholder="Name" value="{{old('name')}}">
+                        <input type="text" id="name" name="firstname" required placeholder="First Name" value="{{old('firstname')}}">
                     </div>
+                    <div class="part">
+                        
+                        <input type="text" id="name" name="sirname" required placeholder="Sir Name" value="{{old('sirname')}}">
+                    </div>
+                    <div class="part">
+                        <select name="gender" id="gender" style=" width: 100%; padding: 10px; border: 1px solid #ccc;border-radius: 4px; font-size: 16px;transition: border-color 0.3s;">
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div class="part">
+                        <label for="date">Date of Birth: </label>
+                        <input type="date" id="dob" name="dob" required style="width: 97%; padding: 10px; border: 1px solid #ccc;border-radius: 4px; font-size: 16px;transition: border-color 0.3s;">
+                      </div>
                     <div class="part">
                         
                         <input type="email" id="email" name="email" required placeholder="Email" value="{{old('email')}}">
@@ -19,8 +34,8 @@
                         @enderror
                     </div>
                     <div class="part">
-                        <label for="image">Profile</label>
-                        <input type="file" id="profile" name="profile" required>
+                        <label for="image">Profile: </label>
+                        <input type="file" id="profile" name="profile" required style="width: 97%; padding: 10px; border: 1px solid #ccc;border-radius: 4px; font-size: 16px;transition: border-color 0.3s;">
                       </div>
                     <div class="part">
                         

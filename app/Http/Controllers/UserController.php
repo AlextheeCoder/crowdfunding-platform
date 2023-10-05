@@ -65,7 +65,10 @@ class UserController extends Controller
     //Register Users
     public function store(Request $request) {
         $formFields = $request->validate([
-            'name' => ['required', 'min:3'],
+            'firstname' => ['required', 'min:3'],
+            'sirname' => ['required', 'min:3'],
+            'gender' => ['required', 'min:3'],
+            'dob' => ['required', 'min:3'],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'min:6']
         ]);

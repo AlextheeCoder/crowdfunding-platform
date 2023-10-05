@@ -17,7 +17,7 @@
                         <button type="submit" id="create-campaign-button">Submit</button>
                     </div>
                     <div class="notlogin">
-                        <span>Didn't Receive a code<a href="/register" alt=#>Resend</a></span>
+                        <span>Didn't Receive a code<a href="/register" alt=#> Resend</a></span>
                     </div>
 
                 </form>

@@ -9,10 +9,10 @@
           
           @auth
               <a class="stats" href="/user/{{$campaign->id}}">Creator</a>
-              <span>{{ $campaign->user->name }}</span>
+              <span>{{ $campaign->user->firstname }}</span>
           @else
               <a class="stats" href="#">Creator</a>
-              <span>{{ $campaign->user->name }}</span>
+              <span>{{ $campaign->user->firstname }}</span>
           @endauth
       
           <h4 class="stats">Investors</h4>
@@ -48,17 +48,20 @@
         </div>
         <div class="investment-details">
           <h3>Investment Details</h3>
-          <p><strong>Offering Type:</strong> {{ $campaign->offering_type }}</p>
-      
-          @if($campaign->offering_type == 'equity')
-              <p><strong>Asset Type:</strong> {{ $campaign->asset_type }}</p>
-              <p><strong>Price Per Share:</strong> {{ $campaign->price_per_share }}</p>
-              <p><strong>Valuation:</strong> {{ $campaign->valuation }}</p>
-              <p><strong>Min Investment:</strong> {{ $campaign->min_investment }}</p>
-          @elseif($campaign->offering_type == 'product_crowdfunding')
-              <p><strong>Asset Type:</strong> {{ $campaign->asset_type }}</p>
-          @endif
+          <div class="details-content">
+              <p><strong>Offering Type:</strong> {{ $campaign->offering_type }}</p>
+              
+              @if($campaign->offering_type == 'equity')
+                  <p><strong>Asset Type:</strong> {{ $campaign->asset_type }}</p>
+                  <p><strong>Price Per Share:</strong> {{ $campaign->price_per_share }}</p>
+                  <p><strong>Valuation:</strong> {{ $campaign->valuation }}</p>
+                  <p><strong>Min Investment:</strong> {{ $campaign->min_investment }}</p>
+              @elseif($campaign->offering_type == 'product_crowdfunding')
+                  <p><strong>Asset Type:</strong> {{ $campaign->asset_type }}</p>
+              @endif
+          </div>
       </div>
+      
       
       </div>
       

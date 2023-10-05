@@ -49,8 +49,7 @@
           </a>
         </li>
         <div class="dropdown">
-          <li class="dropbtn"><i class="fa fa-bars"></i> 
-            {{auth()->user()->name}} 
+          <li class="dropbtn"><i class="fa fa-bars"></i> {{auth()->user()->firstname}} 
           </li>
           <div class="dropdown-content">
             <a href="/profile">Profile</a>

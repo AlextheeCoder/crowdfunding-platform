@@ -33,6 +33,32 @@ class AdminController extends Controller
         return view("admin.auth.logOTP");
     }
 
+
+//view user management page
+
+public function usermanagement(){
+    $allusers = User::all();
+    return view("admin.pages.user-management")->with(
+        [
+            'users' => $allusers,
+        ]
+    );
+}
+
+
+public function userdetails($id) {
+    $user = User::find($id);
+
+    if (!$user) {
+        return redirect()->back()->with('error', 'User not found');
+    }
+
+    return view("admin.pages.user-details", compact('user'));
+}
+
+
+
+
     public function index() {
         $campaignCount = Campaign::count();
         $userCount = User::count();
@@ -55,6 +81,15 @@ class AdminController extends Controller
                                         ->groupBy(DB::raw('DATE(created_at)'))
                                         ->get()
                                         ->pluck('count');
+        
+ 
+        // Fetch the latest 8 users
+        $latestUsers = User::orderBy('created_at', 'desc')->take(8)->get();
+        //Users joint today
+        // Count users who have joined today
+        $todayUsersCount = User::whereDate('created_at', Carbon::today())->count();
+
+
     
         return view('admin.index', [
             'campaignCount' => $campaignCount,
@@ -63,7 +98,9 @@ class AdminController extends Controller
             'dailyPledgeCount' => $dailyPledgeCount,
             'dates' => $dates,
             'totalPledgesPerDay' => $totalPledgesPerDay,
-            'dailyTransactionCounts' => $dailyTransactionCounts,  // Pass the daily transaction counts to the view
+            'dailyTransactionCounts' => $dailyTransactionCounts, 
+            'latestUsers' => $latestUsers,
+            'todayUsersCount' => $todayUsersCount,
         ]);
     }
     
@@ -138,4 +175,23 @@ class AdminController extends Controller
     
         return redirect('/')->with('message', 'You have been logged out!');
     }
+
+
+
+
+
+//Usermanagement page
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('sirname');
             $table->string('gender');
-            $table->string('dob');
+            $table->date('dob');
             $table->string('email')->unique();
             $table->string('profile')->nullable();
             $table->timestamp('email_verified_at')->nullable();

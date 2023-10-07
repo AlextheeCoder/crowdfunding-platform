@@ -95,19 +95,19 @@
 				<div class="members-header">
 					<h3>Latest Members</h3>
 					<div class="header-actions">
-						<span class="new-members">8 New Members</span>
+						<span class="new-members">{{ $todayUsersCount }} New Members</span>
 						<button class="close-btn">✕</button>
 					</div>
 				</div>
 				<div class="members-grid">
-					<!-- Example for one member -->
-					<div class="member">
-						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUobhn513mcoqjkZu1zkw1drdeRrm9btZmzzoVUZroGF59aSVb1iFJaM9mxp0UTBAITlo&usqp=CAU" alt="Alexander Pierce">
-						<p>Alexander Pierce</p>
-						<span>Today</span>
-					</div>
-					<!-- Repeat similar blocks for each member, 8 in total -->
-				</div>
+					@foreach($latestUsers as $user)
+						<div class="member">
+							<img src="{{$user->profile ? asset('storage/' . $user->profile) : asset('/images/homies.jpg')}}"  alt="">
+							<p>{{ $user->firstname }}</p>
+							<span>{{ $user->created_at->diffForHumans() }}</span> <!-- This will display "3 days ago", "1 month ago", etc. -->
+						</div>
+					@endforeach
+				</div>				
 				<div class="view-all">
 					<a href="#">View All Users</a>
 				</div>

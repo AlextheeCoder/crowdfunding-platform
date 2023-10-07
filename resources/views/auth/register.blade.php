@@ -1,6 +1,6 @@
 <x-layout>
     <div class="auth">
-        <div class="container">
+        <div class="container" style="height: 550px;">
             <div class="heading">
                 <h2>Register</h2>
             </div>

@@ -139,3 +139,9 @@ Route::post('/password/email', [UserController::class, 'handleForgotPassword'])-
 Route::get('/password/reset/{token}', [UserController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/password/reset', [UserController::class, 'handleResetPassword'])->name('password.update');
 Route::get('/email-sent', [UserController::class, 'showemailwassent'])->name('email.sent');
+
+
+//Admin Routes for pages
+Route::get('/users/manage' , [AdminController::class, 'usermanagement']);
+Route::get('/users/manage/user' , [AdminController::class, 'userdetails']);
+Route::get('/users/manage/user/{id}', [AdminController::class, 'userdetails'])->name('user.manage');

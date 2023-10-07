@@ -17,7 +17,7 @@
                   <td>
                       <img src="{{$pledge->campaign->image ? asset('storage/' . $pledge->campaign->image) : asset('/images/homies.jpg')}}" alt="">
                   </td>
-                  <td>{{ $pledge->campaign->user->name }}</td>
+                  <td>{{ $pledge->campaign->user->firstname }} {{ $pledge->campaign->user->sirname }}</td>
                   <td><a class="titlelink" href="/discover/{{$pledge->campaign->id}}">{{$pledge->campaign->title }}</a></td>
                   <td>{{ $pledge->amount }} Eth</td>
                   <td>{{ $pledge->campaign->daysLeft }}</td>

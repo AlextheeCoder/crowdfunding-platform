@@ -90,7 +90,40 @@
 				
 			
 			</div>
+
+			<div class="members-container">
+				<div class="members-header">
+					<h3>Latest Members</h3>
+					<div class="header-actions">
+						<span class="new-members">8 New Members</span>
+						<button class="close-btn">✕</button>
+					</div>
+				</div>
+				<div class="members-grid">
+					<!-- Example for one member -->
+					<div class="member">
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUobhn513mcoqjkZu1zkw1drdeRrm9btZmzzoVUZroGF59aSVb1iFJaM9mxp0UTBAITlo&usqp=CAU" alt="Alexander Pierce">
+						<p>Alexander Pierce</p>
+						<span>Today</span>
+					</div>
+					<!-- Repeat similar blocks for each member, 8 in total -->
+				</div>
+				<div class="view-all">
+					<a href="#">View All Users</a>
+				</div>
+			</div>
 			
+
+
+
+
+
+
+
+
+
+
+
 
 
 			<script>

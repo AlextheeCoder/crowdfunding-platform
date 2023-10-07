@@ -61,9 +61,76 @@
               @endif
           </div>
       </div>
-      
+     
+    
       
       </div>
+      <div class="comment-section">
+        <h2>Comments</h2>
+    
+        @auth
+    @if($hasBacked || $isCreator)
+        <form action="{{ route('comments.store', ['campaign' => $campaign->id]) }}" method="post">
+            @csrf
+            <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
+            <textarea name="body" required></textarea>
+            <button type="submit">Add Comment</button>
+        </form>
+    @else
+        <p>You need to back this campaign first to comment.</p>
+    @endif
+@else
+    <p>You need to <a href="{{ route('login') }}">login</a> to comment.</p>
+@endauth
+
+    
+    
+    <div class="comment-container">
+      @foreach($comments as $comment)
+      <div class="comment">
+          <strong><img src="{{$comment->user->profile ? asset('storage/' . $comment->user->profile) : asset('/images/homies.jpg')}}"  alt=""> {{ $comment->user->firstname }} {{ $comment->user->sirname }}</strong>
+          <span>{{ $comment->created_at->diffForHumans() }}</span>
+          <p>{{ $comment->body }}</p>
+          
+          @auth
+                @if($hasBacked || $isCreator)
+          <button class="toggle-reply-form">Reply</button>
+          @else
+       
+    @endif
+@else
+    
+@endauth
+          <div class="reply-form" style="display: none;">
+            <form action="{{ route('comments.store', ['campaign' => $campaign->id]) }}" method="post">
+                @csrf
+                <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                <textarea name="body" required></textarea>
+                <button type="submit">Reply</button>
+            </form>
+        </div>
+<!-- Display replies -->
+        <div class="replies">
+          @foreach($comment->replies as $reply)
+              <div class="reply">
+                <strong><img src="{{$reply->user->profile ? asset('storage/' . $reply->user->profile) : asset('/images/homies.jpg')}}"  alt=""> {{ $reply->user->firstname }} {{ $reply->user->sirname }} replied:</strong>
+                <span>{{ $reply->created_at->diffForHumans() }}</span>
+                  <p>{{ $reply->body }}</p>
+              </div>
+          @endforeach
+          
+      </div>
+        
+          <!-- Reply button and form goes here... -->
+      </div>
+  @endforeach
+  
+    </div>
+       
+        
+    
+
+    </div>
       
       <div class="overlay" id="overlay" style="display: none"></div>
       <div class="loading-spinner" id="loading-spinner" style="display: none;">
@@ -155,6 +222,27 @@
           pledgeButton.disabled = false;
         });
       })();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+    // Get all the "Reply" buttons
+    let replyButtons = document.querySelectorAll('.toggle-reply-form');
+
+    // Add click event to each "Reply" button
+    replyButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            // Find the closest reply form to the clicked button
+            let replyForm = this.nextElementSibling;
+            // Toggle the display of the reply form
+            if (replyForm.style.display === "none") {
+                replyForm.style.display = "block";
+            } else {
+                replyForm.style.display = "none";
+            }
+        });
+    });
+});
+
     </script>
   </x-layout>
   

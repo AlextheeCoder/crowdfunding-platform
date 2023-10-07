@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Pledge;
+use App\Models\Comment;
 use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,20 +92,30 @@ class CampaignController extends Controller
     
 
     public function single(Campaign $campaign)
-{
-    // Count of distinct investors for the campaign
-    $investorsCount = $campaign->pledges()->distinct('user_id')->count();
+    {
+        // Load comments for the campaign
+        $comments = $campaign->comments()->whereNull('parent_id')->with('user')->latest()->get();
+ // "with('user')" assumes each comment is related to a user and you want to load that user's data alongside each comment. Remove it if not needed. "latest()" will order comments with the most recent ones first.
+    
+        // Count of distinct investors for the campaign
+        $investorsCount = $campaign->pledges()->distinct('user_id')->count();
+    
+        // Calculate the amount raised so far for the campaign
+        $amountRaised = $campaign->pledges()->sum('amount');
+        //
+        $hasBacked = $campaign->pledges->contains('user_id', auth()->id());
+        $isCreator = $campaign->user_id == auth()->id();
 
-    // Calculate the amount raised so far for the campaign
-    $amountRaised = $campaign->pledges()->sum('amount');
-
-    return view('pages.single-campaign', [
-        'campaign' => $campaign,
-        'investorsCount' => $investorsCount,
-        'amountRaised' => $amountRaised,
-    ]);
-}
-
+        return view('pages.single-campaign', [
+            'campaign' => $campaign,
+            'investorsCount' => $investorsCount,
+            'amountRaised' => $amountRaised,
+            'hasBacked' => $hasBacked,
+            'isCreator' => $isCreator,
+            'comments' => $comments,  // Pass the comments to the view
+        ]);
+    }
+    
 
    
     public function createCampaign(Request $request)
@@ -254,5 +265,34 @@ class CampaignController extends Controller
 
     }
 
+
+    public function storeComment(Request $request, Campaign $campaign)
+    {
+        $request->validate([
+            'body' => 'required|max:1000', 
+            'parent_id' => 'nullable|exists:comments,id' // This ensures the provided parent_id exists in the comments table, or it's null
+        ]);
+    
+        // Create a new comment instance
+        $comment = new Comment;
+        $comment->body = $request->body;
+        $comment->user_id = auth()->id();
+        
+        // Check if a parent_id (indicating a reply) was provided and set it
+        if ($request->filled('parent_id')) {
+           
+            $comment->parent_id = $request->parent_id;
+        } 
+       
+
+    
+        // Save the comment to the campaign
+        $comment->campaign_id = $campaign->id;  // manually associate the campaign ID
+        $comment->save();
+
+    
+        return redirect()->back()->with('success', 'Comment added successfully!');
+    }
+    
 
 }

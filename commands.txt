@@ -5,6 +5,7 @@ php artisan make:migration create_contacts_table --create=contacts
 php artisan migrate:refresh --seed
 php artisan make:controller UserController
 php artisan make:model Message
+php artisan make:model Comment
 
 
 rm public/storage

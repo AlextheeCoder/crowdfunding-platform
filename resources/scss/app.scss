@@ -878,7 +878,113 @@ body {
       }
   }
   
-  
+  .comment-section {
+    margin-top: 40px;
+    border-top: 2px solid #e0e0e0; // Adds a light border at the top to separate the section
+    padding-top: 20px;
+
+    h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    form {
+        margin-bottom: 30px;
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+    }
+
+    p {
+        margin-bottom: 20px;
+        font-size: 16px;
+        font-family: 'Courier New', Courier, monospace;
+
+        a {
+            color: #007bff;
+            text-decoration: underline;
+
+            &:hover {
+                color: #0056b3;
+            }
+        }
+    }
+.comment-container{
+  background-color: #f4f4f4;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  .comment {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: white;
+
+    strong {
+        font-weight: 600;
+        color: #444;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    p {
+        margin-top: 5px;
+        font-size: 20px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    img{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    span {
+      font-size: 12px;
+      color: #5a5a5a;
+  }
+
+  .reply {
+    margin-left: 40px; // indentation
+    background: #f7f7f7; // light background
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    
+    strong {
+        color: #555; // make the user's name slightly darker
+    }
+}
+}
+}
+    
+}
+
     
   }
   

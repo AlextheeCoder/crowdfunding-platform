@@ -64,4 +64,8 @@ class Campaign extends Model
         $currentDate = Carbon::now();
         return $deadline->diffInDays($currentDate);
     }
+    public function comments(){
+    return $this->hasMany(Comment::class);
+}
+
 }

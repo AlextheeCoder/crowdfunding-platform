@@ -10,7 +10,9 @@ use App\Mail\SendOtpMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -180,7 +182,22 @@ public function userdetails($id) {
 
 
 
-//Usermanagement page
+//Delete user
+public function delete(User $user){
+        
+    
+    if($user->profile && Storage::disk('public')->exists($user->profile)) {
+        Storage::disk('public')->delete($user->profile);
+    }
+
+    if (Auth::id() === $user->id) {
+        Auth::logout();
+    }
+
+    $user->delete();
+    return redirect('/users/manage')->with('message', 'user deleted successfully');
+    
+}
 
 
 

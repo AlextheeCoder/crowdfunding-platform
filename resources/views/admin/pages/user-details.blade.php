@@ -11,14 +11,41 @@
                     <p><strong>Email ID</strong>: {{ $user->email}}</p>
                     <p><strong>Gender</strong>: {{ $user->gender}}</p>
                 </div>
-                <p><strong>Address</strong>: E104, catn-2, Chandlodia Ahmedabad Gujarat, UK.</p>
+                @if (!$user->ethereum_address)
+                <p><strong>Ethereum Address</strong>: Not set</p>  
+                @else
+                <p><strong>Ethereum Address</strong>: {{ $user->ethereum_address}}</p>
+                @endif
                 <div class="social-stats">
-                    <div class="facebook">Delete</div>
-                    <div class="twitter">Message</div>
+                    <div class="delete">
+                        <form method="POST" action="{{ route('user.delete', ['user' => $user->id]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
+                      </form>
+                    </div>
+                    <div class="message" id="toggle-message-form">Message</div>
                     <div class="google-plus">Warn</div>
                 </div>
             </div>
            
+            <div class="message-box" style="display: none;">
+                <form action="" method="POST">
+                    @csrf
+            
+                    <!-- User Input for Message -->
+                    <div class="form-group">
+                        <label for="message">Your Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+            
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit">Send Message</button>
+                    </div>
+                </form>
+            </div>
+            
         </div>    
         <div class="card-container">
             <ul class="tabs">
@@ -126,4 +153,23 @@
 });
 
      </script>
+     <script>
+        // Get the toggle button and the form
+let toggleButton = document.getElementById('toggle-message-form');
+let messageBox = document.querySelector('.message-box');
+
+// Add a click event listener to the toggle button
+toggleButton.addEventListener('click', function() {
+    // Check if the message box is currently hidden
+    if (messageBox.style.display === "none" || messageBox.style.display === "") {
+        // If it's hidden, show it
+        messageBox.style.display = "block";
+    } else {
+        // If it's visible, hide it
+        messageBox.style.display = "none";
+    }
+});
+
+     </script>
+
 </x-adminlayout>

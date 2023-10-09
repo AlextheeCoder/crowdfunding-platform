@@ -146,3 +146,4 @@ Route::get('/users/manage' , [AdminController::class, 'usermanagement']);
 Route::get('/users/manage/user' , [AdminController::class, 'userdetails']);
 Route::get('/users/manage/user/{id}', [AdminController::class, 'userdetails'])->name('user.manage');
 Route::post('/campaign/{campaign}/comments', [CampaignController::class, 'storeComment'])->name('comments.store');
+Route::delete('/user/{user}', [AdminController::class, 'delete'])->name('user.delete');

@@ -7,6 +7,7 @@
 	@vite(['resources/css/app.css','resources/scss/admin.scss','resources/js/app.js'])
 	<title>AdminSite</title>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
 	

@@ -41,9 +41,9 @@
 				<i class='bx bxs-bell icon' ></i>
 				<span class="badge">5</span>
 			</a>
-			<a href="#" class="nav-link">
+			<a href="/message/admin" class="nav-link">
 				<i class='bx bxs-message-square-dots icon' ></i>
-				<span class="badge">8</span>
+				<span class="badge"  id="unread-count">0</span>
 			</a>
 			<span class="divider"></span>
 			<div class="profile">
@@ -70,7 +70,30 @@
 	</section>
 	<!-- NAVBAR -->
 
-	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-	<script src="{{ asset('js/admin.js') }}"></script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="{{ asset('js/admin.js') }}"></script>
+@auth
+<script>
+function updateUnreadMessageCount() {
+const unreadCountElement = document.getElementById('unread-count');
+
+fetch('/unread-messages-count')
+  .then(response => response.json())
+  .then(data => {
+	const unreadCount = data.unread_count;
+	unreadCountElement.textContent = unreadCount;
+  })
+  .catch(error => {
+	console.error('Error fetching unread message count:', error);
+  });
+}
+
+// Call the function initially to show the unread count on page load
+updateUnreadMessageCount();
+
+// Periodically update the unread message count every 10 seconds
+setInterval(updateUnreadMessageCount, 10000); // 10000 milliseconds = 10 seconds
+</script>
+@endauth
 </html>

@@ -34,6 +34,7 @@
                     @csrf
             
                     <!-- User Input for Message -->
+                    <input type="hidden" name="user_id" value="{{$user->id}}">
                     <div class="form-group">
                         <label for="message">Your Message:</label>
                         <textarea id="message" name="message" rows="5" required></textarea>
@@ -168,6 +169,43 @@ toggleButton.addEventListener('click', function() {
         // If it's visible, hide it
         messageBox.style.display = "none";
     }
+});
+
+     </script>
+
+     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const messageForm = document.querySelector('.message-box form');
+
+    messageForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Get the form data
+        const formData = new FormData(messageForm);
+
+        // Send the message using AJAX
+        fetch('{{ route('sendMessageToUser') }}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-Token': '{{ csrf_token() }}', // Add CSRF token in the header
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Message sent successfully!');
+                // You can redirect or simply reset the form
+                messageForm.reset();
+            } else {
+                alert('Failed to send message. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        });
+    });
 });
 
      </script>

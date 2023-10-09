@@ -9,7 +9,7 @@
         @foreach($contacts as $contact)
         <li class="contact" data-contact-id="{{ $contact->id }}"> 
           <img src="{{$contact->profile ? asset('storage/' . $contact->profile) : asset('/images/homies.jpg')}}"  alt="">
-          {{ $contact->name }}</li>
+          {{ $contact->firstname }} {{ $contact->sirname }}</li>
         @endforeach
       </ul>
     </div>

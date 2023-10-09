@@ -86,7 +86,10 @@ Route::get('/user/{campaign}', [CampaignController::class,'show_user'])->middlew
 
 
 //Show messages page
-Route::get('/message', [MessageController::class,'show'])->middleware('auth');;
+Route::get('/message', [MessageController::class,'show'])->middleware('auth');
+
+//Show admin messages
+Route::get('/message/admin', [MessageController::class,'showadmin'])->middleware('auth');
 
 //Get Contacts
 Route::get('/contacts', [MessageController::class, 'getContacts'])->middleware('auth');;
@@ -99,6 +102,10 @@ Route::post('/send', [MessageController::class, 'sendMessage']);
 
 //Send message to campaign Creator
 Route::post('/send-message-to-creator', [MessageController::class, 'sendMessageToCreator'])->name('sendMessageToCreator');
+
+//Send Message to user form the administrator 
+Route::post('/sendMessageToUser', [MessageController::class, 'sendMessageToUser'])->name('sendMessageToUser');
+
 
 //Read receipts
 Route::post('/mark-messages-as-read', [MessageController::class, 'markMessagesAsRead']);

@@ -51,6 +51,45 @@ class MessageController extends Controller
             'contacts' => $contacts,
         ]);
     }
+    public function showadmin()
+    {
+        // Get the currently authenticated user
+        $user = auth()->user();
+    
+        // Fetch contacts of the user (users who sent messages to the user or received messages from the user)
+        $contacts = User::whereIn('id', function ($query) use ($user) {
+            $query->select('sender_id')
+                ->from('messages')
+                ->where('receiver_id', $user->id)
+                ->groupBy('sender_id');
+        })->orWhereIn('id', function ($query) use ($user) {
+            $query->select('receiver_id')
+                ->from('messages')
+                ->where('sender_id', $user->id)
+                ->groupBy('receiver_id');
+        })->get();
+    
+        // Fetch the latest message for each contact
+        $contacts->each(function ($contact) use ($user) {
+            $latestMessage = Message::where(function ($query) use ($user, $contact) {
+                $query->where('sender_id', $user->id)
+                      ->where('receiver_id', $contact->id);
+            })->orWhere(function ($query) use ($user, $contact) {
+                $query->where('sender_id', $contact->id)
+                      ->where('receiver_id', $user->id);
+            })->latest()->first();
+    
+            // Add the latest message timestamp to the contact
+            $contact->latestMessageTimestamp = optional($latestMessage)->created_at;
+        });
+    
+        // Sort the contacts based on the latest message timestamp in descending order
+        $contacts = $contacts->sortByDesc('latestMessageTimestamp');
+    
+        return view('admin.pages.messages', [
+            'contacts' => $contacts,
+        ]);
+    }
     
     
 
@@ -166,6 +205,37 @@ public function getUnreadMessageCount()
         return response()->json(['error' => 'User not authenticated'], 401);
     }
 }
+
+
+public function sendMessageToUser(Request $request)
+{
+    // Validate the form data
+    $request->validate([
+        'message' => 'required|string',
+        'user_id' => 'required|integer|exists:users,id', // Ensure you're passing the user's ID and that the user exists in the DB
+    ]);
+
+    // Get the currently authenticated user (sender)
+    $sender = auth()->user();
+
+    // Get the receiver's user ID from the request
+    $receiver_id = $request->input('user_id');
+    $receiver = User::findOrFail($receiver_id);
+
+    // Create a new message
+    $message = new Message();
+    $message->sender_id = $sender->id;
+    $message->receiver_id = $receiver->id;
+    $message->content = $request->input('message');
+    $message->save();
+
+    // The contacts logic remains unchanged, but you can omit it if it's not relevant to this use case.
+    //...
+
+    // Return a response
+    return response()->json(['success' => true]);
+}
+
 
     
 }

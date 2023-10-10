@@ -14,7 +14,7 @@
                 @if (!$user->ethereum_address)
                 <p><strong>Ethereum Address</strong>: Not set</p>  
                 @else
-                <p><strong>Ethereum Address</strong>: {{ $user->ethereum_address}}</p>
+                <p style="overflow:hidden;"><strong>Ethereum Address</strong>: {{ $user->ethereum_address}}</p>
                 @endif
                 <div class="social-stats">
                     <div class="delete">

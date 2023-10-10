@@ -2,10 +2,13 @@ php artisan make:migration create_campaigns_table --create=campaigns
 php artisan make:migration create_pledges_table --create=pledges
 php artisan make:migration create_messages_table --create=messages
 php artisan make:migration create_contacts_table --create=contacts
+php artisan make:migration create_reports_table --create=reports
 php artisan migrate:refresh --seed
 php artisan make:controller UserController
+php artisan make:controller ReportController
 php artisan make:model Message
 php artisan make:model Comment
+php artisan make:model Reports
 
 
 rm public/storage

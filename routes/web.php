@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PledgeController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\FeaturedController;
@@ -154,3 +155,7 @@ Route::get('/users/manage/user' , [AdminController::class, 'userdetails']);
 Route::get('/users/manage/user/{id}', [AdminController::class, 'userdetails'])->name('user.manage');
 Route::post('/campaign/{campaign}/comments', [CampaignController::class, 'storeComment'])->name('comments.store');
 Route::delete('/user/{user}', [AdminController::class, 'delete'])->name('user.delete');
+
+//Reporting
+Route::post('/report/store', [ReportController::class, 'store'])->name('storeReport');
+Route::get('/reports', [AdminController::class, 'viewReports']);

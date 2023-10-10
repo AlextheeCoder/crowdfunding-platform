@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Pledge;
+use App\Models\Report;
 use App\Models\Campaign;
 use App\Mail\SendOtpMail;
 use Illuminate\Http\Request;
@@ -56,6 +57,11 @@ public function userdetails($id) {
     }
 
     return view("admin.pages.user-details", compact('user'));
+}
+
+public function viewReports() {
+    $reports = Report::with('reporter', 'reportedUser')->get();
+    return view('admin.pages.reports', compact('reports'));
 }
 
 

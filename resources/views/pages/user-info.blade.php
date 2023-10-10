@@ -46,15 +46,18 @@
       
         
         </div>
+        @if ($campaign->user->id == auth()->user()->id)
+    @else
         <button class="report-btn" id="reportUserButton">Report User</button>
+        @endif
 
         <div class="report-box" style="display: none;">
             
-            <form action="" method="POST">
+            <form id="report-form" method="POST">
                 @csrf
                 <h5>Reason for reporting:  </h5>
                 <!-- User Input for Message -->
-                <input type="hidden" name="user_id" value="{{$campaign->user->id}}">
+                <input type="hidden" name="reported_user_id" value="{{$campaign->user->id}}">
                 <div class="part">
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
@@ -120,5 +123,43 @@
         }
     });
 });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    const reportForm = document.getElementById('report-form');
+
+    reportForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Get the form data
+        const formData = new FormData(reportForm);
+
+        // Send the report using AJAX
+        fetch('{{ route('storeReport') }}', { // Adjust the route name accordingly
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-Token': '{{ csrf_token() }}', // Add CSRF token in the header
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response
+            if (data.success) {
+                alert('User reported successfully!');
+                // You can choose to redirect or reset the form or display some message
+                reportForm.reset(); // This will clear the form
+                window.location.href = '/';
+            } else {
+                alert('Failed to report the user. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        });
+    });
+});
+
     </script>
 </x-layout>

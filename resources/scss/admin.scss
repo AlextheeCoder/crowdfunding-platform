@@ -762,7 +762,7 @@ main {
             }
         }
 
-        p.address {
+        p{
             font-size: 14px;
             color: #666;
 
@@ -1193,6 +1193,65 @@ main {
   border-radius: 0 8px 8px 8px;
   align-self: flex-start; /* Align received messages to the left */
   margin: 5px;
+}
+
+
+
+
+///Reporting page
+/// 
+ .report-section {
+padding: 30px;
+background: #f5f5f5;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+
+    thead {
+        background-color: #2C3E50;
+        color: #ecf0f1;
+
+        th {
+            padding: 10px 15px;
+        }
+    }
+
+    tbody {
+        tr {
+            &:nth-child(odd) {
+                background-color: #f9f9f9;
+            }
+
+            td {
+                padding: 10px 15px;
+                border: 1px solid #ddd;
+
+                a {
+                    color: #3498db;
+                    text-decoration: none;
+                    padding: 5px 10px;
+                    background-color: #ecf0f1;
+                    border-radius: 5px;
+                    transition: background-color 0.3s;
+
+                    &:hover {
+                        background-color: #bdc3c7;
+                    }
+                }
+            }
+        }
+    }
+}
 }
 
 ///Main Done

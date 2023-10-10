@@ -1,6 +1,7 @@
 <x-adminlayout>
     <div class="table-container">
         <h2>ACTIVE USERS</h2>
+        <div class="table-responsive">
         <table>
             <thead>
                 <tr>
@@ -32,7 +33,7 @@
                 <!-- Additional rows can be added similarly -->
             </tbody>
         </table>
-
+    </div>
     </div>
     
 </x-adminlayout>

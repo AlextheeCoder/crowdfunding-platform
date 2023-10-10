@@ -638,20 +638,26 @@ main {
 
 
 ///User managment page
-
 .table-container {
   width: 100%;
   padding: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
-  
+
   h2 {
       margin-bottom: 20px;
       align-self: center;
   }
 
+  // Add this wrapper style for responsiveness
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; // For smooth scrolling on mobile
+  }
+
   table {
-      width: 80%;
+      width: 100%;  // Changed from 80% to 100% to fill the container
       border-collapse: collapse;
 
       th, td {
@@ -696,6 +702,7 @@ main {
       }
   }
 }
+
 
 
 //User details page
@@ -784,11 +791,14 @@ main {
 
         .delete{
           background-color: #ce0d0d;
+          max-height: 38px;
+          margin-top: 8px;
           
           button{
             border: none;
             background-color:#ce0d0d;
             font-weight: bold;
+            font-size: 16px;
             
           }
           &:hover{
@@ -803,6 +813,7 @@ main {
         }
         .message{
           background-color: #2d7ec0;
+        
           
          
           &:hover{
@@ -977,6 +988,62 @@ main {
         margin-top: 20px;
         float: right;
     }
+}
+#activity2 {
+  background: #f6f6f6;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  font-family: Arial, sans-serif;
+
+  .comment {
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+
+      &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      strong {
+        display: inline-block;
+        margin-bottom: 10px;
+        font-family: 'Arial', sans-serif;
+        font-size: 1.2em; 
+        color: #34495e; // Dark blue-gray
+        
+        span {
+            color: #e74c3c; // A bold red color
+            font-weight: bold;
+        }
+    
+        &:before {
+            content: "🗨️"; // Using a speech bubble emoji for visual flair
+            margin-right: 8px;
+        }
+    }
+    
+
+      p {
+          color: #7f8c8d;
+          font-size: 0.95em;
+          line-height: 1.5;
+      }
+  }
+
+  p {
+      color: #bdc3c7;
+      text-align: left;
+      font-style: italic;
+  }
+
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 

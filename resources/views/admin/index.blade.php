@@ -13,10 +13,14 @@
 							<h2>{{ $campaignCount }}</h2>
 							<p>Campaigns</p>
 						</div>
+						@if($todaycampaigncount > 0)
 						<i class='bx bx-trending-up icon' ></i>
+						@else
+    					<i class='bx bx-trending-down icon down' ></i>
+					@endif
 					</div>
-					<span class="progress" data-value="40%"></span>
-					<span class="label">40%</span>
+					<span class="progress" data-value="{{$campaignpercent}}%"></span>
+					<span class="label">{{$campaignpercent}}%</span>
 				</div>
 				<div class="card">
 					<div class="head">
@@ -24,10 +28,16 @@
 							<h2>{{ $userCount }}</h2>
 							<p>Users</p>
 						</div>
-						<i class='bx bx-trending-down icon down' ></i>
+						@if($todayUsersCount > 0)
+						<i class='bx bx-trending-up icon' ></i>
+						@else
+    					<i class='bx bx-trending-down icon down' ></i>
+					@endif
 					</div>
-					<span class="progress" data-value="10%"></span>
-					<span class="label">60%</span>
+					<span class="progress" data-value="{{$userpercent}}%"></span>
+					<span class="label">{{$userpercent}}%</span>
+					
+
 				</div>
 				<div class="card">
 					<div class="head">
@@ -35,10 +45,14 @@
 							<h2>{{ $pledgeCount }}</h2>
 							<p>Pledges</p>
 						</div>
+						@if($todaypledgecount > 0)
 						<i class='bx bx-trending-up icon' ></i>
+						@else
+    					<i class='bx bx-trending-down icon down' ></i>
+					@endif
 					</div>
-					<span class="progress" data-value="30%"></span>
-					<span class="label">30%</span>
+					<span class="progress" data-value="{{$pledgepercent}}%"></span>
+					<span class="label">{{$pledgepercent}}%</span>
 				</div>
 				<div class="card">
 					<div class="head">
@@ -48,8 +62,8 @@
 						</div>
 						<i class='bx bx-trending-up icon' ></i>
 					</div>
-					<span class="progress" data-value="80%"></span>
-					<span class="label">80%</span>
+					<span class="progress" data-value="{{$pledgepercent}}%"></span>
+					<span class="label">{{$pledgepercent}}%</span>
 				</div>
 			</div>
 

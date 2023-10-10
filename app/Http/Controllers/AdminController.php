@@ -90,6 +90,30 @@ public function userdetails($id) {
         //Users joint today
         // Count users who have joined today
         $todayUsersCount = User::whereDate('created_at', Carbon::today())->count();
+        $todayCamapignsCount = Campaign::whereDate('created_at', Carbon::today())->count();
+        $todayPledgeCount = Pledge::whereDate('created_at', Carbon::today())->count();
+
+        //user increase/decrease:
+        $totalUsersUntilYesterday = User::whereDate('created_at', '<', Carbon::today())->count();
+        $totalCamapignsUntilYesterday = Campaign::whereDate('created_at', '<', Carbon::today())->count();
+        $totalPledgesUntilYesterday = Pledge::whereDate('created_at', '<', Carbon::today())->count();
+    
+        $percentageIncrease = 0;
+        if ($totalUsersUntilYesterday > 0) { // Avoid division by zero
+            $percentageIncrease = round(($todayUsersCount / $totalUsersUntilYesterday) * 100);
+
+        }
+        $CampaignpercentageIncrease = 0;
+        if ($totalCamapignsUntilYesterday > 0) { // Avoid division by zero
+            $CampaignpercentageIncrease = round(($todayCamapignsCount / $totalCamapignsUntilYesterday) * 100);
+
+        }
+        $PledgepercentageIncrease = 0;
+        if ($totalPledgesUntilYesterday > 0) { // Avoid division by zero
+            $PledgepercentageIncrease = round(($todayPledgeCount / $totalPledgesUntilYesterday) * 100);
+
+        }
+        
 
 
     
@@ -103,6 +127,11 @@ public function userdetails($id) {
             'dailyTransactionCounts' => $dailyTransactionCounts, 
             'latestUsers' => $latestUsers,
             'todayUsersCount' => $todayUsersCount,
+            'userpercent' => $percentageIncrease,
+            'campaignpercent' => $CampaignpercentageIncrease,
+            'todaycampaigncount' => $todayCamapignsCount,
+            'pledgepercent' => $PledgepercentageIncrease,
+            'todaypledgecount' =>$todayPledgeCount,
         ]);
     }
     

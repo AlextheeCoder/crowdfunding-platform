@@ -5,8 +5,8 @@
             <h4 class="stats">First Name:<span>{{$campaign->user->firstname}}</span></h4>
             <h4 class="stats">Sirname:<span>{{$campaign->user->sirname}}</span></h4>
             <h4  class="stats">Email: <span>{{$campaign->user->email}}</span></h4>
-            <h4  class="stats">Date joined: <span>{{$campaign->user->created_at}}</span></h4>
-            <h4  class="stats">User rating:<span>5</span></h4>
+            <h4  class="stats">Date joined: <span>{{$campaign->user->created_at->diffForHumans()}}</span></h4>
+            
         </div>
 
         <div class="campaign-info">
@@ -46,8 +46,25 @@
       
         
         </div>
+        <button class="report-btn" id="reportUserButton">Report User</button>
 
-
+        <div class="report-box" style="display: none;">
+            
+            <form action="" method="POST">
+                @csrf
+                <h5>Reason for reporting:  </h5>
+                <!-- User Input for Message -->
+                <input type="hidden" name="user_id" value="{{$campaign->user->id}}">
+                <div class="part">
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+        
+                <!-- Submit Button -->
+                <div class="part">
+                    <button type="submit">Report</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -90,4 +107,18 @@
 
     </script>
     
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    let reportButton = document.getElementById('reportUserButton');
+    let reportBox = document.querySelector('.report-box');
+
+    reportButton.addEventListener('click', function() {
+        if (reportBox.style.display === "none" || reportBox.style.display === "") {
+            reportBox.style.display = "block";
+        } else {
+            reportBox.style.display = "none";
+        }
+    });
+});
+    </script>
 </x-layout>

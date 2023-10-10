@@ -24,8 +24,13 @@
                         <button><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
                       </form>
                     </div>
+                     @if ($user->id == auth()->user()->id)
+
+                     @else
                     <div class="message" id="toggle-message-form">Message</div>
-                    <div class="google-plus">Warn</div>
+                   
+                    
+                    @endif
                 </div>
             </div>
            
@@ -57,8 +62,18 @@
         
             <div class="tab-content">
                 <div id="activity2" class="content-panel visible">
-                   <p>No comments yet...</p>
+                    @if(count($user->comments) > 0)
+                        @foreach($user->comments as $comment)
+                            <div class="comment">
+                                <strong>{{$comment->user->name}} Commented on: <span>{{ $comment->campaign->user->firstname }} {{ $comment->campaign->user->sirname }}'s campaign</span> </strong>
+                                <p>{{ $comment->body }}</p>
+                            </div>
+                        @endforeach
+                    @else
+                        <p>No comments yet...</p>
+                    @endif
                 </div>
+                
                 <div id="campaigns" class="content-panel hidden">
                     <div class="camaign-table-container">
                         <table>
@@ -97,7 +112,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
+                                    <th>Receiver</th>
                                     <th>Amount</th>
                                     <th>Date</th>
                                 </tr>

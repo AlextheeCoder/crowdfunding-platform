@@ -64,6 +64,13 @@ public function viewReports() {
     return view('admin.pages.reports', compact('reports'));
 }
 
+public function viewReport($reportId){
+    $report = Report::with('reporter', 'reportedUser')->findOrFail($reportId);
+
+    // Return the detailed report view
+    return view('admin.pages.report-details', compact('report'));
+}
+
 
 
 

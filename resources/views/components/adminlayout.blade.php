@@ -39,7 +39,7 @@
 			</form>
 			<a href="/reports" class="nav-link">
 				<i class='bx bxs-bell icon' ></i>
-				<span class="badge">5</span>
+				<span class="badge" id="unread-reports">0</span>
 			</a>
 			<a href="/message/admin" class="nav-link">
 				<i class='bx bxs-message-square-dots icon' ></i>

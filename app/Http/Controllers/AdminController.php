@@ -48,6 +48,15 @@ public function usermanagement(){
     );
 }
 
+public function campaignmanagement(){
+    $allcampaigns =Campaign::all();
+    return view("admin.pages.campaign-management")->with(
+        [
+            'campaigns' => $allcampaigns,
+        ]
+        );
+}
+
 
 public function userdetails($id) {
     $user = User::find($id);
@@ -57,6 +66,15 @@ public function userdetails($id) {
     }
 
     return view("admin.pages.user-details", compact('user'));
+}
+
+public function campaigndetails($id){
+    $campaign=Campaign::find($id);
+    if(!$campaign){
+        return redirect()->back()->with('error', 'Camapaign Does not exist');
+    }
+
+    return view("admin.pages.campaign-details", compact('campaign'));
 }
 
 public function viewReports() {

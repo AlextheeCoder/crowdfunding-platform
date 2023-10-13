@@ -160,3 +160,5 @@ Route::delete('/user/{user}', [AdminController::class, 'delete'])->name('user.de
 Route::post('/report/store', [ReportController::class, 'store'])->name('storeReport');
 Route::get('/reports', [AdminController::class, 'viewReports']);
 Route::get('/admin/reports/{reportId}', [AdminController::class, 'viewReport'])->name('admin.reports.show');
+Route::get ('/campaign/manage', [AdminController::class, 'campaignmanagement']);
+Route::get('/campaigns/manage/campaign/{id}', [AdminController::class, 'campaigndetails'])->name('campaign.manage');

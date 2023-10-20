@@ -27,7 +27,7 @@ Route::get('/',[FeaturedController::class, 'index']);
 Route::get('/unread-messages-count', [MessageController::class, 'getUnreadMessageCount']);
 
 //Showing Create canpaign page
-Route::get('/create', [CampaignController::class,'show'])->middleware('auth');;
+Route::get('/create', [CampaignController::class,'show'])->middleware('auth');
 
 //Creating Campaign
 Route::post('/campaign/create', [CampaignController::class, 'createCampaign'])->name('campaign.create');

@@ -27,6 +27,7 @@ return new class extends Migration
             $table->timestamp('otp_created_at')->nullable();
             $table->string('reset_token')->nullable();
             $table->timestamp('reset_token_expiry')->nullable();
+            $table->boolean('suspended')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

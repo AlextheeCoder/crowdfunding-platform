@@ -251,22 +251,22 @@ public function viewReport($reportId){
 
 
 //Delete user
-public function delete(User $user){
-        
-    
-    if($user->profile && Storage::disk('public')->exists($user->profile)) {
-        Storage::disk('public')->delete($user->profile);
-    }
+public function suspend($id) {
+    $user = User::find($id);
+    if ($user) {
+        $user->suspended = !$user->suspended; // toggle the state
+        $user->save();
 
-    if (Auth::id() === $user->id) {
-        Auth::logout();
-    }
+        // Check if the authenticated user is the same as the user being suspended
+        if(Auth::id() === $user->id) {
+            Auth::logout();
+            return redirect('/login')->with('message', 'Your account has been suspended.');
+        }
 
-    $user->delete();
-    return redirect('/users/manage')->with('message', 'user deleted successfully');
-    
+        return redirect()->back()->with('message', 'User suspension status updated!');
+    }
+    return redirect()->back()->with('error', 'User not found.');
 }
-
 
 
 

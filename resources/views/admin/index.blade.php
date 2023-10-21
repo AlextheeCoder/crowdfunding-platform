@@ -20,7 +20,7 @@
 					@endif
 					</div>
 					<span class="progress" data-value="{{$campaignpercent}}%"></span>
-					<span class="label">{{$campaignpercent}}%</span>
+					<span class="label">{{$campaignpercent}}%  From yesterday</span>
 				</div>
 				<div class="card">
 					<div class="head">
@@ -35,7 +35,7 @@
 					@endif
 					</div>
 					<span class="progress" data-value="{{$userpercent}}%"></span>
-					<span class="label">{{$userpercent}}%</span>
+					<span class="label">{{$userpercent}}%  From yesterday</span>
 					
 
 				</div>
@@ -52,7 +52,7 @@
 					@endif
 					</div>
 					<span class="progress" data-value="{{$pledgepercent}}%"></span>
-					<span class="label">{{$pledgepercent}}%</span>
+					<span class="label">{{$pledgepercent}}%  From yesterday</span>
 				</div>
 				<div class="card">
 					<div class="head">
@@ -63,7 +63,7 @@
 						<i class='bx bx-trending-up icon' ></i>
 					</div>
 					<span class="progress" data-value="{{$pledgepercent}}%"></span>
-					<span class="label">{{$pledgepercent}}%</span>
+					<span class="label">{{$pledgepercent}}%  From yesterday</span>
 				</div>
 			</div>
 

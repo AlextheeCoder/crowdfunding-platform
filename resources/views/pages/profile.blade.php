@@ -50,6 +50,7 @@
                 <td>Eth: {{ $campaign->target }}</td>
                 <td>{{ $campaign->pledges->sum('amount') }}</td>
                 <td>{{ $campaign->daysLeft }}</td>
+                @if (!auth()->user()->suspended == "1")
                 <td> <a class="editlink" href="{{ route('campaign.edit', ['id' => $campaign->id]) }}">Edit</a> </td>
               <td>
                 <form method="POST" action="{{ route('campaign.delete', ['campaign' => $campaign->id]) }}">
@@ -58,6 +59,9 @@
                 <button class="text-red-500"><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
               </form>
             </td>
+            @else
+            <td>No actions due to suspension</td>
+            @endif
             </tr>
             @endforeach
           </table>

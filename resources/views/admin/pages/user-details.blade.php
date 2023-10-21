@@ -17,9 +17,21 @@
                 <p style="overflow:hidden;"><strong>Ethereum Address</strong>: {{ $user->ethereum_address}}</p>
                 @endif
                 <div class="social-stats">
+                    @if ($user->suspended == 1)
                     <div class="delete">
-                        <button><i class="fa fa-trash" aria-hidden="true"></i>  Suspend</button>
+                        <a href="{{ route('user.suspend', $user->id) }}">
+                            <i class="fa fa-ban" aria-hidden="true"></i> Un-suspend
+                        </a>
                     </div>
+                    @else
+                    <div class="delete">
+                        <a href="{{ route('user.suspend', $user->id) }}">
+                            <i class="fa fa-ban" aria-hidden="true"></i> Suspend
+                        </a>
+                    </div>
+                    @endif
+                  
+                    
                      @if ($user->id == auth()->user()->id)
 
                      @else

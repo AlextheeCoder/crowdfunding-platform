@@ -18,6 +18,7 @@
       <div class="logo"> <a href="/">Alenderx</a>
       </div>
       <ul class="menu">
+        
         <li><a href="/discover">Discover</a></li>
         
         @auth
@@ -40,7 +41,7 @@
         </div> 
         @endif
 
-               
+        @if (!auth()->user()->suspended == "1")
         <li><a href="/create">Start a project</a></li>
         <li>
           <a href="/message" class="notification">
@@ -48,6 +49,10 @@
             <span class="badge" id="unread-count">0</span>
           </a>
         </li>
+        @else
+        <li style="color: red">You have been suspended. Contact Admin</li>
+
+        @endif               
         <div class="dropdown">
           <li class="dropbtn"><i class="fa fa-bars"></i> {{auth()->user()->firstname}} 
           </li>

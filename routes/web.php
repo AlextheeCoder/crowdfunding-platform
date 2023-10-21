@@ -162,3 +162,5 @@ Route::get('/reports', [AdminController::class, 'viewReports']);
 Route::get('/admin/reports/{reportId}', [AdminController::class, 'viewReport'])->name('admin.reports.show');
 Route::get ('/campaign/manage', [AdminController::class, 'campaignmanagement']);
 Route::get('/campaigns/manage/campaign/{id}', [AdminController::class, 'campaigndetails'])->name('campaign.manage');
+
+Route::get('/user/suspend/{id}', [AdminController::class, 'suspend'])->name('user.suspend');

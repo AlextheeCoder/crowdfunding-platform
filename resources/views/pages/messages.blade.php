@@ -1,7 +1,10 @@
 <x-layout>
+ 
   <div class="chat-container" style="margin-bottom: 100px">
+    
     <div class="contacts-section">
       <div class="contacts-header">
+        <button>Contact Admin</button>
         <h2>Contacts</h2>
       </div>
       <ul class="contact-list">
@@ -12,6 +15,7 @@
           {{ $contact->firstname }} {{ $contact->sirname }}</li>
         @endforeach
       </ul>
+     
     </div>
     <div class="message-section">
       <div class="message-header">
@@ -30,6 +34,7 @@
        
       </div>
     </div>
+    
   </div>
 
   <script>

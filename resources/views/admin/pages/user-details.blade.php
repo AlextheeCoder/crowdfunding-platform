@@ -18,11 +18,7 @@
                 @endif
                 <div class="social-stats">
                     <div class="delete">
-                        <form method="POST" action="{{ route('user.delete', ['user' => $user->id]) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button><i class="fa fa-trash" aria-hidden="true"></i>  Delete</button>
-                      </form>
+                        <button><i class="fa fa-trash" aria-hidden="true"></i>  Suspend</button>
                     </div>
                      @if ($user->id == auth()->user()->id)
 

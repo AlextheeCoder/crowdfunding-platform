@@ -17,10 +17,10 @@
 		<ul class="side-menu">
 			<li><a href="/admin" class="active"><i class='bx bxs-dashboard icon' ></i>Dashboard</a></li>
 			<li class="divider" data-text="main">Main</li>
-			<li><a href="/users/manage"><i class='bx bxs-chart icon' ></i> User Managment</a></li>
-			<li><a href="/campaign/manage"><i class='bx bxs-widget icon' ></i> Campaign Managment</a></li>
-			<li><a href="#"><i class='bx bxs-widget icon' ></i>Transactions</a></li>
-			<li><a href="#"><i class='bx bxs-widget icon' ></i>Analytics</a></li>
+			<li><a href="/users/manage"><i class='bx bxs-user icon' ></i> User Managment</a></li>
+			<li><a href="/campaign/manage"><i class='bx bxs-book icon' ></i> Campaign Managment</a></li>
+			<li><a href="#"><i class='bx bxs-coin icon' ></i>Transactions</a></li>
+			<li><a href="#"><i class='bx bxs-chart icon' ></i>Analytics</a></li> 
 		</ul>
 		
 	</section>

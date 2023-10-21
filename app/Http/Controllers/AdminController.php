@@ -68,14 +68,22 @@ public function userdetails($id) {
     return view("admin.pages.user-details", compact('user'));
 }
 
-public function campaigndetails($id){
-    $campaign=Campaign::find($id);
-    if(!$campaign){
-        return redirect()->back()->with('error', 'Camapaign Does not exist');
+
+public function campaigndetails($id) {
+    $campaign = Campaign::find($id);
+    if (!$campaign) {
+        return redirect()->back()->with('error', 'Campaign does not exist');
     }
+
+    $PledgeCount = $campaign->pledges->pluck('user_id')->count();
+    $campaign->PledgeCount = $PledgeCount;
+
+    $totalPledged = $campaign->pledges->sum('amount');
+    $campaign->totalPledged = $totalPledged;
 
     return view("admin.pages.campaign-details", compact('campaign'));
 }
+
 
 public function viewReports() {
     $reports = Report::with('reporter', 'reportedUser')->get();

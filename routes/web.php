@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\IssueController;
 use App\Http\Controllers\PledgeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MessageController;
@@ -164,3 +165,9 @@ Route::get ('/campaign/manage', [AdminController::class, 'campaignmanagement']);
 Route::get('/campaigns/manage/campaign/{id}', [AdminController::class, 'campaigndetails'])->name('campaign.manage');
 
 Route::get('/user/suspend/{id}', [AdminController::class, 'suspend'])->name('user.suspend');
+
+Route::post('/issue', [IssueController::class, 'store'])->name('issues.store');
+
+Route::get('/admin/issues/{id}', [AdminController::class, 'viewissue'])->name('admin.issues.show');
+Route::post('admin/issues/{issue}/suspend', [IssueController::class, 'suspend'])->name('admin.issues.suspend');
+Route::post('admin/issues/{issue}/reinstate', [IssueController::class, 'reinstate'])->name('admin.issues.reinstate');

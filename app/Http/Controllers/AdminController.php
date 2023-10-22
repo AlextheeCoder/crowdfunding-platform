@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Issue;
 use App\Models\Pledge;
 use App\Models\Report;
 use App\Models\Campaign;
@@ -87,7 +88,8 @@ public function campaigndetails($id) {
 
 public function viewReports() {
     $reports = Report::with('reporter', 'reportedUser')->get();
-    return view('admin.pages.reports', compact('reports'));
+    $issues = Issue::with('user')->get();
+    return view('admin.pages.reports', compact('reports', 'issues'));
 }
 
 public function viewReport($reportId){
@@ -95,6 +97,14 @@ public function viewReport($reportId){
 
     // Return the detailed report view
     return view('admin.pages.report-details', compact('report'));
+}
+
+public function viewissue($id) {
+    $issue = Issue::with('user')->find($id);
+    if (!$issue) {
+        return redirect()->route('admin.issues.index')->with('error', 'Issue not found.');
+    }
+    return view('admin.pages.issue-detail', compact('issue'));
 }
 
 

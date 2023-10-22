@@ -54,17 +54,7 @@
 					<span class="progress" data-value="{{$pledgepercent}}%"></span>
 					<span class="label">{{$pledgepercent}}%  From yesterday</span>
 				</div>
-				<div class="card">
-					<div class="head">
-						<div>
-							<h2>{{ $dailyPledgeCount }}</h2>
-							<p>Daily Pledges</p>
-						</div>
-						<i class='bx bx-trending-up icon' ></i>
-					</div>
-					<span class="progress" data-value="{{$pledgepercent}}%"></span>
-					<span class="label">{{$pledgepercent}}%  From yesterday</span>
-				</div>
+				
 			</div>
 
 			<div class="data">
@@ -123,7 +113,7 @@
 					@endforeach
 				</div>				
 				<div class="view-all">
-					<a href="#">View All Users</a>
+					<a href="/users/manage">View All Users</a>
 				</div>
 			</div>
 			

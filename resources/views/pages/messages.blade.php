@@ -4,7 +4,36 @@
     
     <div class="contacts-section">
       <div class="contacts-header">
-        <button>Contact Admin</button>
+        @if (auth()->user()->suspended == "1")
+        <button id="contactAdminBtn" style="color:white; padding: 10px 15px; border: none;  border-radius: 3px; background-color: #ff3c00; cursor: pointer;  transition: background-color 0.3s ease;">Contact Admin</button>
+        @endif
+        
+
+
+
+        <div id="contactAdminModal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <form action="/issue" method="POST">
+              @csrf
+              <h2>Contact Admin</h2>
+              <label for="reason">Reason:</label>
+              <select name="issue_type">
+                <option value="account_ban">Account Ban</option>
+                <option value="campaign_ban">Campaign Ban</option>
+              </select>
+              <label for="message">Message:</label>
+              <textarea name="description" required></textarea>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+
+
+
+
+
+
         <h2>Contacts</h2>
       </div>
       <ul class="contact-list">
@@ -145,6 +174,33 @@
       }
     });
 }
+
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Get the modal and the button
+    const modal = document.getElementById('contactAdminModal');
+    const btn = document.getElementById('contactAdminBtn');
+    const span = document.querySelector('.close-btn');
+
+    // When the button is clicked, show the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the close button (x) is clicked, close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When anywhere outside of the modal is clicked, close it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+});
 
   </script>
 </x-layout>

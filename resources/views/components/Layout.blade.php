@@ -50,7 +50,7 @@
           </a>
         </li>
         @else
-        <li style="color: red">You have been suspended. Contact Admin</li>
+        <li><a href="/message" style="color: red">You have been suspended. Contact Admin</a></li>
 
         @endif               
         <div class="dropdown">

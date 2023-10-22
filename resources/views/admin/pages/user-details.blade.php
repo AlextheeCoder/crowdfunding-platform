@@ -20,7 +20,7 @@
                     @if ($user->suspended == 1)
                     <div class="delete">
                         <a href="{{ route('user.suspend', $user->id) }}">
-                            <i class="fa fa-ban" aria-hidden="true"></i> Un-suspend
+                            <i class="fa fa-ban" aria-hidden="true"></i>Reinstate
                         </a>
                     </div>
                     @else

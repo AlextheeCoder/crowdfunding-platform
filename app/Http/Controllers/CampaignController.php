@@ -72,7 +72,7 @@ class CampaignController extends Controller
 
     
         // Get the filtered campaigns
-        $campaigns = $query->paginate(6);
+        $campaigns = $query->paginate(4);
         $allCampaigns = Campaign::all();
     
         // Calculate the number of unique investors and total amount pledged for each campaign

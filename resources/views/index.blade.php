@@ -3,7 +3,7 @@
     <section class="hero">
         <h1>Bring your creative project to life.</h1>
         <p>Alenderx helps starups, and other creators find the resources and support they need to make their ideas a reality.</p>
-        <a href="/discover" class="cta-button">Get started</a>
+        <a href="/discover" class="cta-button">Let's Discover</a>
       </section>
     
       <section class="featured-projects">

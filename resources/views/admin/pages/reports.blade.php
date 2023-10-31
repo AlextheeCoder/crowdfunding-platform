@@ -22,7 +22,7 @@
                         <td>{{ $report->message }}</td>
                         <td>{{ $report->created_at->format('Y-m-d H:i') }}</td>
                         <td>
-                            <!-- You can add actions such as view, delete etc. here -->
+                           
                             <a href="{{ route('admin.reports.show', $report->id) }}">View</a>
                         </td>
                     </tr>

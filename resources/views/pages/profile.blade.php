@@ -62,6 +62,10 @@
             @else
             <td>No actions due to suspension</td>
             @endif
+
+            @if ($campaign->suspended == 1)
+            <td style="color: red">This campaign has been suspended</td>
+            @endif
             </tr>
             @endforeach
           </table>

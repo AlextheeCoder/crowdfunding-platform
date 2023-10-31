@@ -58,6 +58,14 @@ public function campaignmanagement(){
         );
 }
 
+public function transactionmanagement(){
+    $alltransactions = Pledge::all();
+    return view("admin.pages.transaction-management")->with(
+        [
+            'transactions' =>$alltransactions,
+        ]);
+}
+
 
 public function userdetails($id) {
     $user = User::find($id);

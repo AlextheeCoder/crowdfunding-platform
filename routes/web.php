@@ -172,3 +172,7 @@ Route::post('/issue', [IssueController::class, 'store'])->name('issues.store');
 Route::get('/admin/issues/{id}', [AdminController::class, 'viewissue'])->name('admin.issues.show');
 Route::post('admin/issues/{issue}/suspend', [IssueController::class, 'suspend'])->name('admin.issues.suspend');
 Route::post('admin/issues/{issue}/reinstate', [IssueController::class, 'reinstate'])->name('admin.issues.reinstate');
+
+
+
+Route::get('/transactions/manage', [AdminController::class,'transactionmanagement']);

@@ -59,7 +59,9 @@
           <div class="card-container">
             @unless(count($campaigns) == 0)
             @foreach($campaigns as $campaign)
+            @if (!$campaign->suspended == 1)
             <x-campaign-card :campaign="$campaign" />
+            @endif
             @endforeach
             @else
             <p>No campaigns found</p>

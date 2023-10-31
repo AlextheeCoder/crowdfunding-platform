@@ -26,6 +26,7 @@ return new class extends Migration
             $table->float('valuation')->nullable();
             $table->float('min_investment')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('suspended')->default(false);
             $table->timestamps();
         
             // Add foreign key constraint for user_id

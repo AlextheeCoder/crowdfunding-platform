@@ -280,9 +280,20 @@ public function suspend($id) {
 
 
 
+//Suspend Campaign
+public function suspendCamapign($id) {
+    $camapign = Campaign::find($id);
+    if ($camapign) {
+        $camapign->suspended = !$camapign->suspended; // toggle the state
+        $camapign->save();
 
+        // Check if the authenticated user is the same as the user being suspended
+       
 
-
+        return redirect()->back()->with('message', 'camapign suspension status updated!');
+    }
+    return redirect()->back()->with('error', 'camapign not found.');
+}
 
 
 

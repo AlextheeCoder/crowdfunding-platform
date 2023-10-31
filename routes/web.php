@@ -165,6 +165,7 @@ Route::get ('/campaign/manage', [AdminController::class, 'campaignmanagement']);
 Route::get('/campaigns/manage/campaign/{id}', [AdminController::class, 'campaigndetails'])->name('campaign.manage');
 
 Route::get('/user/suspend/{id}', [AdminController::class, 'suspend'])->name('user.suspend');
+Route::get('/campaign/suspend/{id}', [AdminController::class, 'suspendCamapign'])->name('campaign.suspend');
 
 Route::post('/issue', [IssueController::class, 'store'])->name('issues.store');
 

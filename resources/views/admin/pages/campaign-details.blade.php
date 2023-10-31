@@ -16,8 +16,21 @@
             <p><strong>Number of Pledges:</strong><span> {{$campaign->PledgeCount}}</span> </p>
             <p><strong>Total Pledged:</strong><span> {{ $campaign->totalPledged }}</span> </p>
         </div>
+      
+
+        @if ($campaign->suspended == 1)
         <div class="campaign-actions">
-            <button class="suspend-btn">Suspend</button>
+            <a href="{{ route('campaign.suspend', $campaign->id) }}" class="suspend-btn">
+                <i class="fa fa-ban" aria-hidden="true"></i>Reinstate
+            </a>
         </div>
+        @else
+        <div class="campaign-actions">
+            <a href="{{ route('campaign.suspend', $campaign->id) }}" class="suspend-btn">
+                <i class="fa fa-ban" aria-hidden="true"></i> Suspend
+            </a>
+        </div>
+        @endif
+
     </div>
 </x-adminlayout>

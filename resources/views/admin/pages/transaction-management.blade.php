@@ -23,7 +23,7 @@
                     <td style="color: rgb(22, 192, 22)">{{$transaction->amount}} ETH</td>
                     <td>{{ $transaction->created_at->format('Y-m-d H:i') }}</td>
                     <td>
-                        <a href="">View</a>
+                        <a href="{{ route('admin.transaction.show', $transaction->id) }}">View</a>
                     </td>
                 </tr>
                 @endforeach

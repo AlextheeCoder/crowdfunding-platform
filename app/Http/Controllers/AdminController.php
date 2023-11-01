@@ -116,6 +116,14 @@ public function viewissue($id) {
 }
 
 
+public function viewtransaction($id) {
+
+    $transaction = Pledge::find($id);
+    if (!$transaction) {
+        return redirect()->route('admin.index')->with('error', '');
+    }
+    return view('admin.pages.single-transaction', compact('transaction'));
+}
 
 
     public function index() {

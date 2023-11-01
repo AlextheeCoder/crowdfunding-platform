@@ -176,3 +176,4 @@ Route::post('admin/issues/{issue}/reinstate', [IssueController::class, 'reinstat
 
 
 Route::get('/transactions/manage', [AdminController::class,'transactionmanagement']);
+Route::get('/transactions/{id}', [AdminController::class, 'viewtransaction'])->name('admin.transaction.show');

@@ -1640,6 +1640,73 @@ main {
   }
 }
 
+//analytics
+.analytics-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #f7f9fc;
+  max-width: 1400px;
+  margin: auto;
+
+  h2 {
+      font-size: 1.8rem;
+      color: #333;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #007BFF;
+      padding-bottom: 1rem;
+  }
+
+  h4 {
+      font-size: 1.4rem;
+      color: #555;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+  }
+
+  div {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      canvas {
+          width: 100%;
+          max-height: 300px;
+          display: block;
+      }
+  }
+
+  .user-analytics, .campaign-analytics {
+      grid-column: span 3;
+  }
+
+  @media (max-width: 1024px) {
+      grid-template-columns: 1fr 1fr;
+      
+      .user-analytics, .campaign-analytics {
+          grid-column: span 1;
+      }
+  }
+
+  @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+
+      .user-analytics, .campaign-analytics {
+          grid-column: span 1;
+      }
+  }
+}
+
+
 
 
 ///Main Done

@@ -95,7 +95,7 @@ class CampaignController extends Controller
     {
         // Load comments for the campaign
         $comments = $campaign->comments()->whereNull('parent_id')->with('user')->latest()->get();
- // "with('user')" assumes each comment is related to a user and you want to load that user's data alongside each comment. Remove it if not needed. "latest()" will order comments with the most recent ones first.
+
     
         // Count of distinct investors for the campaign
         $investorsCount = $campaign->pledges()->distinct('user_id')->count();
@@ -173,7 +173,7 @@ class CampaignController extends Controller
         // Retrieve the pledge amount from the request
         $pledgeAmount = $request->input('pledge');
         
-        // No need to update the target value in the database as it remains unchanged
+        
         
         // Create an instance of the PledgeController and call its process method
         $pledgeController = new PledgeController();

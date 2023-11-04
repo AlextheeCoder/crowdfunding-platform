@@ -57,7 +57,6 @@ class PledgeController extends Controller
         // Load HTML content into Dompdf
         $dompdf->loadHtml($pdfHtml);
 
-        // (Optional) Set paper size and orientation
         $dompdf->setPaper('A4', 'portrait');
 
         // Render the PDF
@@ -95,7 +94,7 @@ class PledgeController extends Controller
         // Load HTML content into Dompdf
         $dompdf->loadHtml($pdfHtml);
 
-        // (Optional) Set paper size and orientation
+       
         $dompdf->setPaper('A4', 'portrait');
 
         // Render the PDF

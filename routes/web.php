@@ -118,7 +118,7 @@ Route::get('/view-certificate/{id}', [PledgeController::class, 'viewCertificate'
 
 
 //Admin index page
-Route::get('/admin', [AdminController::class,'index'] )->middleware('checkRole:admin');
+Route::get('/admin', [AdminController::class,'index'] )->middleware('checkRole:admin')->name('admin.index');
 
 
 
@@ -174,7 +174,9 @@ Route::post('admin/issues/{issue}/suspend', [IssueController::class, 'suspend'])
 Route::post('admin/issues/{issue}/reinstate', [IssueController::class, 'reinstate'])->name('admin.issues.reinstate');
 
 
-
+Route::get('/transactions/exportcsv', [AdminController::class,'transactioncsv']);
+Route::get('/campaigns/exportcsv', [AdminController::class,'CampaignCsv']);
+Route::get('/users/exportcsv', [AdminController::class,'usersCsv']);
 Route::get('/transactions/manage', [AdminController::class,'transactionmanagement']);
 Route::get('/transactions/{id}', [AdminController::class, 'viewtransaction'])->name('admin.transaction.show');
 Route::get('/analytics', [AdminController::class, 'analytics']);

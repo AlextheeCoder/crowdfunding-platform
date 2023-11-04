@@ -11,10 +11,12 @@ use App\Models\Campaign;
 use App\Mail\SendOtpMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class AdminController extends Controller
 {
@@ -389,88 +391,115 @@ public function suspendCamapign($id) {
 }
 
 
-public function analytics() {
-            // Gender Distribution
-            $genderDistribution = User::select('gender', DB::raw('count(*) as count'))
-            ->groupBy('gender')
-            ->get();
+public function transactioncsv()
+{
+    
+    $transactions = Pledge::all(); // Fetch all transactions or apply necessary conditions
 
-        // Age Distribution
-        $ageDistribution = User::select(
-        DB::raw('CASE
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 18 AND 25 THEN "18-25"
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 26 AND 35 THEN "26-35"
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 36 AND 45 THEN "36-45"
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 46 AND 55 THEN "46-55"
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 56 AND 65 THEN "56-65"
-        ELSE "66+" END AS age_bracket'),
-        DB::raw('count(*) as count'))
-        ->groupBy(DB::raw('CASE
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 18 AND 25 THEN "18-25"
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 26 AND 35 THEN "26-35"
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 36 AND 45 THEN "36-45"
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 46 AND 55 THEN "46-55"
-        WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 56 AND 65 THEN "56-65"
-        ELSE "66+" END'))
-        ->get();
+    $headers = [
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=transactions.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    ];
 
-        // Campaigns Created Over Time
-        $campaignsCreated = Campaign::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->get();
+    $columns = ['ID', 'Sender Address', 'Receiver Address', 'Amount', 'Date'];
 
-        // Top Campaign Categories
-        $topCampaignCategories = Campaign::select('category', DB::raw('count(*) as count'))
-                    ->groupBy('category')
-                    ->get();
+    $callback = function() use ($transactions, $columns) {
+        $file = fopen('php://output', 'w');
+        fputcsv($file, $columns);
 
-        // Campaigns by Offering Type
-        $campaignsByOfferingType = Campaign::select('offering_type', DB::raw('count(*) as count'))
-                    ->groupBy('offering_type')
-                    ->get();
+        foreach ($transactions as $transaction) {
+            $row = [
+                $transaction->id,
+                $transaction->user->ethereum_address,
+                $transaction->campaign->ethereum_address,
+                $transaction->amount . ' ETH',
+                $transaction->created_at->format('Y-m-d H:i')
+            ];
+            fputcsv($file, $row);
+        }
+        fclose($file);
+    };
 
-        // Total Valuation Over Time
-        $totalValuation = Campaign::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(valuation) as total_valuation'))
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->get();
-
-        // Active vs Suspended Campaigns
-        $activeVsSuspendedCampaigns = Campaign::select('suspended', DB::raw('count(*) as count'))
-                        ->groupBy('suspended')
-                        ->get();
-
-        // Pledges Over Time
-        $pledgesOverTime = Pledge::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(amount) as total_amount'))
-            ->groupBy(DB::raw('DATE(created_at)'))
-            ->get();
-
-        // Top Campaigns by Pledges
-        $topCampaignsByPledges = DB::table('pledges')
-            ->join('campaigns', 'pledges.campaign_id', '=', 'campaigns.id')
-            ->select('campaigns.title', DB::raw('SUM(pledges.amount) as total_pledged'))
-            ->groupBy('campaigns.title')
-            ->orderBy('total_pledged', 'desc')
-            ->get();
-
-        // Average Pledge Amount Over Time
-        $averagePledgeAmount = Pledge::select(DB::raw('DATE(created_at) as date'), DB::raw('AVG(amount) as average_amount'))
-                ->groupBy(DB::raw('DATE(created_at)'))
-                ->get();
-
-        return view('admin.pages.analytics', compact(
-        'genderDistribution', 
-        'ageDistribution', 
-        'campaignsCreated', 
-        'topCampaignCategories',
-        'campaignsByOfferingType',
-        'totalValuation',
-        'activeVsSuspendedCampaigns',
-        'pledgesOverTime',
-        'topCampaignsByPledges',
-        'averagePledgeAmount'
-        ));
+    return Response::stream($callback, 200, $headers);
 
 }
 
+public function CampaignCsv()
+{
+    $campaigns = Campaign::all(); 
+
+    $headers = [
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=campaigns.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    ];
+
+    $columns = ['ID', 'Title', 'Ethereum Address', 'Deadline', 'Owner', 'Date Created'];
+
+    $callback = function() use ($campaigns, $columns) {
+        $file = fopen('php://output', 'w');
+        fputcsv($file, $columns);
+
+        foreach ($campaigns as $campaign) {
+            $row = [
+                $campaign->id,
+                $campaign->title,
+                $campaign->ethereum_address,
+                $campaign->deadline, 
+                $campaign->user->firstname . ' ' . $campaign->user->sirname,
+                $campaign->created_at->toDateTimeString() 
+            ];
+            fputcsv($file, $row);
+        }
+        fclose($file);
+    };
+
+    return Response::stream($callback, 200, $headers);
+}
+
+public function usersCsv()
+{
+    $users = User::all(); 
+
+    $headers = [
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=users.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+    ];
+
+    $columns = ['ID', 'Name', 'Ethereum Address', 'Age', 'Gender', 'Date Joined', 'Role'];
+
+    $callback = function() use ($users, $columns) {
+        $file = fopen('php://output', 'w');
+        fputcsv($file, $columns);
+
+        foreach ($users as $user) {
+            $age = $user->dob ? Carbon::parse($user->dob)->diffInYears(Carbon::now()) : 'N/A';
+            $dateJoined = $user->created_at->toDateTimeString(); 
+            $name = $user->firstname . ' ' . $user->sirname;
+            
+            $row = [
+                $user->id,
+                $name,
+                $user->ethereum_address,
+                $age,
+                $user->gender,
+                $dateJoined,
+                $user->role
+            ];
+            fputcsv($file, $row);
+        }
+        fclose($file);
+    };
+
+    return Response::stream($callback, 200, $headers);
+}
 
 }

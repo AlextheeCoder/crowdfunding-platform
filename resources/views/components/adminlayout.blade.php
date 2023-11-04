@@ -20,7 +20,7 @@
 			<li><a href="/users/manage"><i class='bx bxs-user icon' ></i> User Managment</a></li>
 			<li><a href="/campaign/manage"><i class='bx bxs-book icon' ></i> Campaign Managment</a></li>
 			<li><a href="/transactions/manage"><i class='bx bx-transfer icon' ></i>Transactions</a></li>
-			<li><a href="/analytics"><i class='bx bx-pie-chart-alt-2 icon' ></i>Analytics</a></li> 
+		
 		</ul>
 	</section>
 	<!-- SIDEBAR -->

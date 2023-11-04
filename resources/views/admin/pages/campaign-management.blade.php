@@ -25,6 +25,7 @@
 
         <div class="table-container">
             <h2>Campaigns</h2>
+            <a href="/campaigns/exportcsv" class="btn btn-primary">Download as CSV</a>
             <div class="table-responsive">
             <table>
                 <thead>

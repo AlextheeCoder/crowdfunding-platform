@@ -311,7 +311,7 @@ public function handleResetPassword(Request $request)
         $ethereumAddress = $request->input('ethereum_address');
     
         // Store the Ethereum address in the user's database record
-        // You can adapt this logic to match your database structure
+       
         $user = $request->user();
         $user->ethereum_address = $ethereumAddress;
         $user->save();

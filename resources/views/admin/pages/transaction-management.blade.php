@@ -17,6 +17,7 @@
 
         <div class="content-section">
             <h2>Transaction Overview</h2>
+            <a href="/transactions/exportcsv" class="btn btn-primary">Download as CSV</a>
             <table class="content-table">
                 <thead>
                     <tr>

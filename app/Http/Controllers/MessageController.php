@@ -160,8 +160,7 @@ class MessageController extends Controller
     $message->content = $request->input('message');
     $message->save();
 
-    // Optionally, you can add the sender and receiver as contacts in the contacts table
-    // if they are not already connected. You should have a check here to avoid duplication.
+   
     $contact1 = new Contact();
     $contact1->user_id = $sender->id;
     $contact1->contact_id = $receiver->id;
@@ -172,7 +171,7 @@ class MessageController extends Controller
     $contact2->contact_id = $sender->id;
     $contact2->save();
 
-    // Optionally, you can send a response back to the form submitter
+    
     return response()->json(['success' => true]);
 }
 
@@ -229,9 +228,7 @@ public function sendMessageToUser(Request $request)
     $message->content = $request->input('message');
     $message->save();
 
-    // The contacts logic remains unchanged, but you can omit it if it's not relevant to this use case.
-    //...
-
+   
     // Return a response
     return response()->json(['success' => true]);
 }

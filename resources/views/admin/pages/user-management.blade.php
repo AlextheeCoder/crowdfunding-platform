@@ -15,7 +15,8 @@
         </div>
 
         <div class="table-container">
-            <h2>ACTIVE USERS</h2>
+            <h2>USERS</h2>
+            <a href="/users/exportcsv" class="btn btn-primary">Download as CSV</a>
             <div class="table-responsive">
             <table>
                 <thead>

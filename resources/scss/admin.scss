@@ -638,71 +638,119 @@ main {
 
 
 ///User managment page
-.table-container {
-  width: 100%;
-  padding: 20px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
 
-  h2 {
-      margin-bottom: 20px;
-      align-self: center;
-  }
+.user-managment{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
 
-  // Add this wrapper style for responsiveness
-  .table-responsive {
+
+
+
+
+  .analytics-wrapper {
+    display: flex;
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch; // For smooth scrolling on mobile
-  }
+    gap: 1rem; // Adjust the gap between the charts as needed
 
-  table {
-      width: 100%;  // Changed from 80% to 100% to fill the container
-      border-collapse: collapse;
+    @media (max-width: 768px) { // Adjust the breakpoint as needed
+      flex-direction: column;
+      align-items: center;
+    }
 
-      th, td {
-          padding: 15px;
-          text-align: left;
-          border-bottom: 1px solid #e5e5e5;
+    .user-analytics {
+      flex: 1; // Take up equal space
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+
+      canvas {
+        width: 100%;
+        max-height: 300px; // You might want to adjust this for different screens
+        display: block;
       }
-
-      td {
-          img {
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              margin-right: 10px;
-              vertical-align: middle;
-          }
-      }
+    }
   }
 
-  .status {
-      padding: 5px 10px;
-      border-radius: 10px;
-      color: #fff;
-      font-weight: bold;
+
+  .table-container {
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+  
+    h2 {
+        margin-bottom: 20px;
+        align-self: center;
+    }
+  
+    // Add this wrapper style for responsiveness
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch; // For smooth scrolling on mobile
+    }
+  
+    table {
+        width: 100%;  // Changed from 80% to 100% to fill the container
+        border-collapse: collapse;
+  
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e5e5;
+        }
+  
+        td {
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+        }
+    }
+  
+    .status {
+        padding: 5px 10px;
+        border-radius: 10px;
+        color: #fff;
+        font-weight: bold;
+    }
+  
+    .pending { background-color: #ffa500; }
+    .completed { background-color: #4caf50; }
+    .in-progress { background-color: #2196f3; }
+    .on-hold { background-color: #f44336; }
+  
+    .details-btn {
+        background-color: #2196f3;
+        color: #fff;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+  
+        &:hover{
+          background-color: #2d7ec0;
+        }
+    }
   }
-
-  .pending { background-color: #ffa500; }
-  .completed { background-color: #4caf50; }
-  .in-progress { background-color: #2196f3; }
-  .on-hold { background-color: #f44336; }
-
-  .details-btn {
-      background-color: #2196f3;
-      color: #fff;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-
-      &:hover{
-        background-color: #2d7ec0;
-      }
-  }
+  
 }
-
 
 
 //User details page
@@ -1200,13 +1248,149 @@ main {
 }
 
 
+//campaign Management
+.campaign-management{
 
+  .analytics-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping items to next line */
+    width: 100%;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .campaign-analytics {
+      flex: 1 1 48%; /* Adjust the flex-basis to 48% to fit two items per row with a gap */
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      canvas {
+        width: 100%;
+        max-height: 300px;
+        display: block;
+      }
+    }
+  }
+
+
+  .table-container {
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+  
+    h2 {
+        margin-bottom: 20px;
+        align-self: center;
+    }
+  
+    // Add this wrapper style for responsiveness
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch; // For smooth scrolling on mobile
+    }
+  
+    table {
+        width: 100%;  // Changed from 80% to 100% to fill the container
+        border-collapse: collapse;
+  
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e5e5;
+        }
+  
+        td {
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+                vertical-align: middle;
+            }
+        }
+    }
+  
+    .status {
+        padding: 5px 10px;
+        border-radius: 10px;
+        color: #fff;
+        font-weight: bold;
+    }
+  
+    .pending { background-color: #ffa500; }
+    .completed { background-color: #4caf50; }
+    .in-progress { background-color: #2196f3; }
+    .on-hold { background-color: #f44336; }
+  
+    .details-btn {
+        background-color: #2196f3;
+        color: #fff;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+  
+        &:hover{
+          background-color: #2d7ec0;
+        }
+    }
+  }
+}
 
 ///Reporting page
 /// 
 .alert-page {
   padding: 40px;
   background-color: #fafafa;
+
+  .analytics-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping items to next line */
+    width: 100%;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pledge-analytics {
+      flex: 1 1 48%; /* Adjust the flex-basis to 48% to fit two items per row with a gap */
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      canvas {
+        width: 100%;
+        max-height: 300px;
+        display: block;
+      }
+    }
+  }
 
   h2 {
     font-size: 28px;

@@ -42,27 +42,102 @@ class AdminController extends Controller
 
 public function usermanagement(){
     $allusers = User::all();
+    $genderDistribution = User::select('gender', DB::raw('count(*) as count'))
+    ->groupBy('gender')
+    ->get();
+
+// Age Distribution
+    $ageDistribution = User::select(
+    DB::raw('CASE
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 18 AND 25 THEN "18-25"
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 26 AND 35 THEN "26-35"
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 36 AND 45 THEN "36-45"
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 46 AND 55 THEN "46-55"
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 56 AND 65 THEN "56-65"
+    ELSE "66+" END AS age_bracket'),
+    DB::raw('count(*) as count'))
+    ->groupBy(DB::raw('CASE
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 18 AND 25 THEN "18-25"
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 26 AND 35 THEN "26-35"
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 36 AND 45 THEN "36-45"
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 46 AND 55 THEN "46-55"
+    WHEN TIMESTAMPDIFF(YEAR, dob, CURDATE()) BETWEEN 56 AND 65 THEN "56-65"
+    ELSE "66+" END'))
+    ->get();
     return view("admin.pages.user-management")->with(
         [
             'users' => $allusers,
+            'genderDistribution' => $genderDistribution,
+            'ageDistribution' => $ageDistribution,
         ]
     );
 }
 
 public function campaignmanagement(){
     $allcampaigns =Campaign::all();
+
+    // Campaigns Created Over Time
+    $campaignsCreated = Campaign::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
+    ->groupBy(DB::raw('DATE(created_at)'))
+    ->get();
+
+// Top Campaign Categories
+$topCampaignCategories = Campaign::select('category', DB::raw('count(*) as count'))
+            ->groupBy('category')
+            ->get();
+
+// Campaigns by Offering Type
+$campaignsByOfferingType = Campaign::select('offering_type', DB::raw('count(*) as count'))
+            ->groupBy('offering_type')
+            ->get();
+
+// Total Valuation Over Time
+$totalValuation = Campaign::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(valuation) as total_valuation'))
+    ->groupBy(DB::raw('DATE(created_at)'))
+    ->get();
+
+// Active vs Suspended Campaigns
+$activeVsSuspendedCampaigns = Campaign::select('suspended', DB::raw('count(*) as count'))
+                ->groupBy('suspended')
+                ->get();
+
     return view("admin.pages.campaign-management")->with(
         [
             'campaigns' => $allcampaigns,
+            'campaignsCreated' => $campaignsCreated, 
+            'topCampaignCategories' =>$topCampaignCategories,
+            'campaignsByOfferingType' => $campaignsByOfferingType,
+            'totalValuation' => $totalValuation,
+            'activeVsSuspendedCampaigns' => $activeVsSuspendedCampaigns,
         ]
         );
 }
 
 public function transactionmanagement(){
     $alltransactions = Pledge::all();
+    $pledgesOverTime = Pledge::select(DB::raw('DATE(created_at) as date'), DB::raw('SUM(amount) as total_amount'))
+    ->groupBy(DB::raw('DATE(created_at)'))
+    ->get();
+
+// Top Campaigns by Pledges
+$topCampaignsByPledges = DB::table('pledges')
+    ->join('campaigns', 'pledges.campaign_id', '=', 'campaigns.id')
+    ->select('campaigns.title', DB::raw('SUM(pledges.amount) as total_pledged'))
+    ->groupBy('campaigns.title')
+    ->orderBy('total_pledged', 'desc')
+    ->get();
+
+// Average Pledge Amount Over Time
+$averagePledgeAmount = Pledge::select(DB::raw('DATE(created_at) as date'), DB::raw('AVG(amount) as average_amount'))
+        ->groupBy(DB::raw('DATE(created_at)'))
+        ->get();
+
     return view("admin.pages.transaction-management")->with(
         [
             'transactions' =>$alltransactions,
+            'pledgesOverTime' => $pledgesOverTime,
+            'topCampaignsByPledges' =>$topCampaignsByPledges,
+            'averagePledgeAmount' => $averagePledgeAmount,
         ]);
 }
 

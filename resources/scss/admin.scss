@@ -1411,6 +1411,10 @@ main {
       border-collapse: separate;
       border-spacing: 0 15px;
       background: #ffffff;
+      display: block;
+      overflow-x: auto; /* Enable horizontal scrolling when necessary */
+      -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
+      border-collapse: collapse;
 
       thead {
         th {

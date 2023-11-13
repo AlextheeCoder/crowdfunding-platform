@@ -67,11 +67,11 @@
         </tr>
         <tr>
             <td>Creator Name:</td>
-            <td colspan="2">{{ $campaign->user->name }}</td>
+            <td colspan="2">{{ $campaign->user->firstname }} {{ $campaign->user->sirname }}</td>
         </tr>
         <tr>
             <td>Investor Name:</td>
-            <td colspan="2">{{ $investorName }}</td>
+            <td colspan="2">{{ $investorName }} </td>
         </tr>
         <tr>
             <td>Amount in Eth:</td>

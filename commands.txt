@@ -19,3 +19,6 @@ php artisan storage:link
 ///Not necessary:
 chmod -R 755 storage bootstrap/cache
 php artisan config:clear
+
+php artisan make:factory CampaignFactory --model=Campaign
+php artisan make:factory PledgeFactory --model=Pledge

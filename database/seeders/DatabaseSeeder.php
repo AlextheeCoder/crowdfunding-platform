@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use App\Models\Pledge;
+use App\Models\Campaign;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +15,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+       // Seed users
+       User::factory(20)->create(); // Create 10 users
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+       // Seed campaigns
+       Campaign::factory(50)->create(); // Create 20 campaigns
+
+       // Seed pledges
+       Pledge::factory(100)->create(); // Create 50 pledges
+
+        
+
+         \App\Models\User::factory()->create([
+           'firstname' => 'Alex',
+           'sirname' => 'Mwai',
+           'gender' => 'male',
+           'dob' => '2001-08-08',
+           'email' => 'alexmwai59@gmail.com',
+           'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+           'role'=>'admin',
+           'profile'=>'profiles/SkxY4dz20z6ifhEBFeEbdNPRYig0uVnh1UHFnU3T.png'
+        ]);
     }
 }

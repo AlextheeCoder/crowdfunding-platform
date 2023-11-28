@@ -5,6 +5,10 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
   }
+  html {
+    scroll-behavior: smooth;
+}
+
   
   .container {
     max-width: 1200px;
@@ -256,6 +260,61 @@ body {
         text-overflow: ellipsis;
       }
     }
+
+    .get-started{
+      background-color: white; /* Light grey background */
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 80px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+      border-top: 4px solid #ff4500;
+
+      h2{
+        color: #333; /* Dark text for heading */
+        margin-bottom: 15px;
+      }
+      p{
+        color: #555; /* Slightly lighter text for paragraph */
+        margin-bottom: 20px;
+      }
+      .steps-list {
+        list-style-type: none; /* Remove default list style */
+        padding: 0;
+        margin: 0 0 20px 0;
+        li {
+          background-color: #fff; /* White background for list items */
+          margin-bottom: 10px;
+          padding: 10px;
+          border-radius: 4px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* subtle shadow for list items */
+          border-left: 4px solid #4CAF50; /* Highlight color bar */
+          color: #333;
+          transition: transform 0.3s, box-shadow 0.3s, border-left-color 0.3s;
+
+          &:hover{
+            transform: translateY(-5px); /* Move up slightly on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Increase shadow size for a 'lifting' effect */
+            border-left-color: #388E3C;
+            cursor: pointer;
+          }
+
+          strong{
+            color: #4CAF50; /* Highlight color for step number */
+            margin-right: 5px;
+          }
+        }
+      }
+      a{
+        color: rgb(38, 38, 231);
+
+        &:hover{
+          color: rgb(248, 52, 52);
+        }
+      }
+     
+
+    }
+    
   }
   
   

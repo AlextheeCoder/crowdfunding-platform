@@ -20,7 +20,7 @@ class ReportController extends Controller
         // Store the report in the database
         Report::create([
             'reported_user_id' => $data['reported_user_id'],
-            'reporter_id' => auth()->user()->id,  // Assuming the reporter is the currently authenticated user
+            'reporter_id' => auth()->user()->id,  
             'message' => $data['message']
         ]);
     

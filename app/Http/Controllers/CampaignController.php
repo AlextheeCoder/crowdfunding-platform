@@ -64,9 +64,9 @@ class CampaignController extends Controller
         case 'price_high_to_low':
             $query->orderBy('target', 'desc');
             break;
-        // Add other cases if needed
+        
         default:
-            // Default sorting logic if needed
+            
             break;
     }
 

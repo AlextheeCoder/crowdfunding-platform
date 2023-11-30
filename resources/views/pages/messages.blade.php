@@ -37,7 +37,7 @@
         <h2>Contacts</h2>
       </div>
       <ul class="contact-list">
-        <!-- Display the contacts here -->
+        <!-- Displaying the contacts here -->
         @foreach($contacts as $contact)
         <li class="contact" data-contact-id="{{ $contact->id }}"> 
           <img src="{{$contact->profile ? asset('storage/' . $contact->profile) : asset('/images/homies.jpg')}}"  alt="">
@@ -51,7 +51,7 @@
         <h2>Messages</h2>
       </div>
       <div class="message-list">
-        <!-- Display the messages here -->
+        <!-- Displaying the messages here -->
       </div>
       <div class="reply-form">
         
@@ -75,7 +75,7 @@
     function markMessagesAsRead(contactId) {
       const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); // Get the CSRF token from the meta tag
 
-      // Send data in a regular JavaScript object
+      // Sending data in a regular JavaScript object
       const data = {
         contact_id: contactId,
       };

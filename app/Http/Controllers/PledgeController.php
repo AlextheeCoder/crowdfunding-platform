@@ -42,7 +42,7 @@ class PledgeController extends Controller
         // Generate the PDF content using the Blade view
         $pdfHtml = View::make('pages.view-certificate', [
             'title' => 'Your Certificate of Investment',
-            'campaign' => $campaign, // Pass the $campaign variable to the view
+            'campaign' => $campaign, 
             'campaignTitle' => $campaign->title,
             'investorName' => $investor->dob,
             'amountEth' => $pledgeAmount,
@@ -80,7 +80,8 @@ class PledgeController extends Controller
             'title' => 'Your Certificate of Investment',
             'campaign' => $campaign, // Pass the $campaign variable to the view
             'campaignTitle' => $campaign->title,
-            'investorName' => $investor->name,
+            'investorName' => $investor->firstname,
+            'investorSecondName' => $investor->sirname,
             'amountEth' => $pledge->amount,
             'campaignAddress' => $campaign->ethereum_address,
             'investorAddress' => $investor->ethereum_address,

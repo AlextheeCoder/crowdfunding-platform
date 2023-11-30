@@ -142,7 +142,7 @@ class MessageController extends Controller
     // Validate the form data
     $request->validate([
         'message' => 'required|string',
-        // Add any other validation rules if needed
+        
     ]);
 
     // Get the currently authenticated user (sender)

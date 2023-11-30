@@ -27,12 +27,10 @@ class Campaign extends Model
 
     public function scopeFilter($query, array $filters) {
         if ($filters['tag'] ?? false) {
-            // Since we are using the 'like' operator, we will convert the array of tags to a string
-            // using pipe '|' as the separator. For example: "Tag 1|Tag 2|Tag 3"
+           
             $tagsString = implode('|', $filters['tag']);
 
-            // Use 'REGEXP' to perform a regular expression search on the 'category' column
-            // to match any of the selected tags.
+            
             $query->where('category', 'REGEXP', $tagsString);
         }
 

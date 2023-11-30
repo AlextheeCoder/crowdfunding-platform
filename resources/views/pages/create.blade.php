@@ -114,7 +114,7 @@
         }
       });
   
-      // Trigger the change event to set the initial state
+      // Triggering the change event to set the initial state
       offeringTypeSelect.dispatchEvent(new Event('change'));
     });
   </script>
@@ -132,7 +132,7 @@
             await window.ethereum.enable();
         }
 
-        // Create a Web3 instance
+        // Creating a Web3 instance
         const web3 = new Web3(window.ethereum);
 
         // Get the current user's Ethereum account address
@@ -158,11 +158,11 @@
             loadingSpinner.style.display = 'block';
             overlay.style.display = 'block';
 
-            // Disable the submit button to prevent multiple submissions
+            // Disabling the submit button to prevent multiple submissions
             submitButton.disabled = true;
 
             try {
-                // Get the form data using the FormData API
+                // Getting the form data using the FormData API
                 const formData = new FormData(form);
                 const title = formData.get('title');
                 const categorySelect = document.getElementById('category');
@@ -175,7 +175,7 @@
                 const pricePerShare = formData.get('price_per_share');
                 const valuation = formData.get('valuation');
                 const minInvestment = formData.get('min_investment');
-                const fileInput = document.getElementById('image'); // Get the file input element
+                const fileInput = document.getElementById('image');
                 const file = fileInput.files[0];
 
                 // Construct the transaction data using the form field values
@@ -197,8 +197,8 @@
                 // Prepare the transaction parameters
                 const transactionParameters = {
                     from: userAddress,
-                    to: '0x3DCbf1c8FDA837ee43621323812E2c9E6AEFc532', // Replace with your actual contract address
-                    value: web3.utils.toWei('0.1', 'ether'), // Example: sending 0.1 ETH
+                    to: '0x3DCbf1c8FDA837ee43621323812E2c9E6AEFc532',
+                    value: web3.utils.toWei('0.1', 'ether'),
                     data: transactionDataHex
                 };
 
@@ -207,9 +207,9 @@
                     const receipt = await web3.eth.sendTransaction(transactionParameters);
 
                     // Transaction successful
-                    alert('Transaction successful!'); // Display success message or redirect
+                    alert('Transaction successful!'); 
 
-                    // Create a new FormData instance and append the file to it
+                    // Creating a new FormData instance and append the file to it
                     const formDataWithFile = new FormData();
                     formDataWithFile.append('title', title);
                     formDataWithFile.append('description', description);
@@ -224,21 +224,21 @@
                     formDataWithFile.append('category', selectedCategory);
 
 
-                    // Send the campaign data to the server for storage
+                    // Sending the campaign data to the server for storage
                     const route = "{{ route('campaign.create') }}";
                     const response = await axios.post(route, formDataWithFile, {
                         headers: {
-                            'Content-Type': 'multipart/form-data' // Set the correct content type for file uploads
+                            'Content-Type': 'multipart/form-data'
                         }
                     });
 
                     // Check if the response was successful
                     if (response.status === 200) {
-                        // Redirect to the specified URL
-                        window.location.href = '/'; // Replace with the desired URL
+                        // Redirect to URL
+                        window.location.href = '/'; 
                     } else {
-                        console.log(response.data); // Optional: Log the server response
-                        alert('Campaign created successfully, but redirection failed.'); // Display a message indicating redirection failure
+                        console.log(response.data); //Log the server response
+                        alert('Campaign created successfully, but redirection failed.'); // Displaying a message indicating redirection failure
                     }
 
                 } catch (error) {
@@ -248,7 +248,7 @@
                 }
 
             } catch (error) {
-                // Handle errors
+                // Log errors
                 console.error('Error:', error);
             }
 

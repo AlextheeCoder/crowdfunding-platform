@@ -333,7 +333,8 @@ public function handleResetPassword(Request $request)
     {
         // Validate the form data
         $request->validate([
-            'name' => 'required',
+            'firstname' => 'required',
+            'sirname' => 'required',
             'email' => 'required|email',
         ]);
     
@@ -345,7 +346,8 @@ public function handleResetPassword(Request $request)
         }
     
         // Update the user data
-        $user->name = $request->name;
+        $user->firstname = $request->firstname;
+        $user->sirname = $request->sirname;
         $user->email = $request->email;
     
         // Check if a new image file was uploaded

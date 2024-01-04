@@ -91,11 +91,11 @@
             </div>
             <div class="part">
                 <label for="Username">First Name</label>
-                <input type="text" name="name" value="{{$user->firstname}}" placeholder="{{$user->firstname}}">
+                <input type="text" name="firstname" value="{{$user->firstname}}" placeholder="{{$user->firstname}}">
             </div>
             <div class="part">
                 <label for="Username">Sir Name</label>
-                <input type="text" name="name" value="{{$user->sirname}}" placeholder="{{$user->sirname}}">
+                <input type="text" name="sirname" value="{{$user->sirname}}" placeholder="{{$user->sirname}}">
             </div>
             <div class="part">
                 <label for="image">Profile</label>

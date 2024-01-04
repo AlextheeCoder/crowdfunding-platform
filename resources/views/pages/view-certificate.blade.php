@@ -71,7 +71,7 @@
         </tr>
         <tr>
             <td>Investor Name:</td>
-            <td colspan="2">{{ $investorName }} {{ $investorSecondName }} </td>
+            <td colspan="2">{{ $investorName }}</td>
         </tr>
         <tr>
             <td>Amount in Eth:</td>

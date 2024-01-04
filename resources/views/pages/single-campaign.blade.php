@@ -144,6 +144,10 @@
     <script>
     
     </script>
+
+@auth
+  
+
     <script>
       (async function () {
         // Check if MetaMask is installed and enable Ethereum provider
@@ -244,5 +248,7 @@
 });
 
     </script>
+
+@endauth
   </x-layout>
   

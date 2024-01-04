@@ -81,7 +81,6 @@ class PledgeController extends Controller
             'campaign' => $campaign, // Pass the $campaign variable to the view
             'campaignTitle' => $campaign->title,
             'investorName' => $investor->firstname,
-            'investorSecondName' => $investor->sirname,
             'amountEth' => $pledge->amount,
             'campaignAddress' => $campaign->ethereum_address,
             'investorAddress' => $investor->ethereum_address,

@@ -16,13 +16,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
        // Seed users
-       User::factory(20)->create(); // Create 10 users
+       //User::factory(20)->create(); // Create 10 users
 
        // Seed campaigns
-       Campaign::factory(50)->create(); // Create 20 campaigns
+       Campaign::factory(20)->create(); // Create 20 campaigns
 
        // Seed pledges
-       Pledge::factory(100)->create(); // Create 50 pledges
+       Pledge::factory(30)->create(); // Create 50 pledges
 
         
 
